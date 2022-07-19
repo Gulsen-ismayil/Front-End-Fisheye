@@ -1,4 +1,5 @@
 import {getPhotographers} from '../utils/fetch.js';
+
 // DOM
 const url = document.location.href;
 const urlData = new URL(url);
@@ -24,14 +25,13 @@ main.appendChild(mediaDiv)
 
 
 // recupere les datas
-
 async function init() {
 
-    const { photographers } = await getPhotographers();
-    displayData(photographers);
-
-    const {media} = await getPhotographers();
-    displayData(media);
+    const { media,photographers } = await getPhotographers();
+    displayData(media,photographers);
+    console.log(photographers)
+    // const {media} = await getPhotographers();
+    // displayData(media);
 };
 
 init();
@@ -39,8 +39,8 @@ init();
 
 
 // filtrer et displaydata
-async function displayData(photographers) {
-
+async function displayData(media,photographer) {
+ 
     function filterPhotographerById(photographer) {
         if(photographer.id==paramsId ) { 
             return true    
@@ -48,19 +48,21 @@ async function displayData(photographers) {
             return false
         }
     }
-    function filterMediaById(photographer) {
-        if(photographer.photographerId==paramsId ) { 
+    function filterMediaById(media) {
+        if(media.photographerId==paramsId ) { 
+           
             return true    
         }else {
             return false
         }
     }
 
-    const photographer = photographers.find(filterPhotographerById);
-    const mediaArreyById = photographers.filter(filterMediaById);
+    const Photographer = photographer.find(filterPhotographerById);
+    const mediaArreyById = media.filter(filterMediaById);
+   
 
        
-        const photographerModel = photographerFactory(photographer);
+        const photographerModel = photographerFactory(Photographer);
         const userCardDOM = photographerModel.getUserCardDOM();
         photographHeader.appendChild(userCardDOM);
     
@@ -75,12 +77,14 @@ async function displayData(photographers) {
 
 // Media factory 
 
-function mediaFactory(media,photographer) {
+function mediaFactory(media,Photographer) {
     const {id,photographerId,title,image,video,likes,date,price} = media;
-
-    const mediaPicture = `assets/photographers/${photographer.name}/${image}`;
-    const mediaVideo = `assets/photographers/${video}`;
-
+    const mediaPicture = `assets/photographers/${Photographer.name}/${image}`;
+    
+    
+    const mediaVideo = `assets/photographers/${Photographer.name}/${video}`;
+   
+    // console.log(mediaVideo)
     function getMediaCardDOM() {
         const imgCard = document.createElement('div');
         imgCard.classList.add('card')
@@ -112,7 +116,7 @@ function mediaFactory(media,photographer) {
 // Photographer Factory
 
 function photographerFactory(data) {
-    debugger
+
     const { name, portrait,city,country,tagline,price,id } = data;
     const picture = `assets/photographers/${portrait}`;
 
