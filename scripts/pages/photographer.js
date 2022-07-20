@@ -6,34 +6,15 @@ const urlData = new URL(url);
 const params = new URLSearchParams(urlData.search);
 const paramsId = params.get('id')
 
-const headerPhotographersFactory = document.querySelector('header');
-const lienLogoFisheye = document.createElement('a');
-lienLogoFisheye.setAttribute('href','index.html');
-
-const headerImage = document.querySelector('.logo');
-headerImage.setAttribute('alt','Fisheye Home Page')
-
-headerPhotographersFactory.appendChild(lienLogoFisheye);
-lienLogoFisheye.appendChild(headerImage);
-
-
 const photographHeader = document.querySelector('.photograph-header');
 const main = document.querySelector('main');
-const mediaDiv = document.createElement('div');
-mediaDiv.classList.add('media')
-main.appendChild(mediaDiv)
-
+const mediaDiv = document.querySelector('.media');
 
 // recupere les datas
 async function init() {
-
     const { media,photographers } = await getPhotographers();
     displayData(media,photographers);
-    console.log(photographers)
-    // const {media} = await getPhotographers();
-    // displayData(media);
 };
-
 init();
 
 
@@ -41,6 +22,14 @@ init();
 // filtrer et displaydata
 async function displayData(media,photographer) {
  
+    function filterMediaById(media) {
+        if(media.photographerId==paramsId ) {    
+            return true    
+        }else {
+            return false
+        }
+    }
+    
     function filterPhotographerById(photographer) {
         if(photographer.id==paramsId ) { 
             return true    
@@ -48,28 +37,17 @@ async function displayData(media,photographer) {
             return false
         }
     }
-    function filterMediaById(media) {
-        if(media.photographerId==paramsId ) { 
-           
-            return true    
-        }else {
-            return false
-        }
-    }
-
     const Photographer = photographer.find(filterPhotographerById);
-    const mediaArreyById = media.filter(filterMediaById);
-   
-
-       
-        const photographerModel = photographerFactory(Photographer);
-        const userCardDOM = photographerModel.getUserCardDOM();
-        photographHeader.appendChild(userCardDOM);
     
-
-        mediaArreyById.forEach((media) => {
+    const mediaArreyById = media.filter(filterMediaById);
+    
+    const photographerModel = photographerFactory(Photographer);
+    const userCardDOM = photographerModel.getUserCardDOM();
+    photographHeader.appendChild(userCardDOM);
+    
+    mediaArreyById.forEach((media) => {
         const mediaModel = mediaFactory(media,photographer);
-        const mediaCardDOM = mediaModel.getMediaCardDOM();
+        const mediaCardDOM = mediaModel.getMediaCardDOMImage();
         main.appendChild(mediaCardDOM);
     })
 };
@@ -77,40 +55,110 @@ async function displayData(media,photographer) {
 
 // Media factory 
 
-function mediaFactory(media,Photographer) {
+function mediaFactory(media,photographer) {
+    
     const {id,photographerId,title,image,video,likes,date,price} = media;
-    const mediaPicture = `assets/photographers/${Photographer.name}/${image}`;
-    
-    
-    const mediaVideo = `assets/photographers/${Photographer.name}/${video}`;
-   
-    // console.log(mediaVideo)
-    function getMediaCardDOM() {
-        const imgCard = document.createElement('div');
-        imgCard.classList.add('card')
+    const mediaPicture = `assets/photographers/${photographer[5].name}/${image}`;
+    console.log(photographer)
+    // const mediaVideo = `assets/photographers/${photographer[5].name}/${video}`;
+  
+
+    function getMediaCardDOMImage() {
+        const mediaCard = document.createElement('div');
+        mediaCard.classList.add('imgcard')
 
         const img = document.createElement('img');
+        img.classList.add('mediaimage')
         img.setAttribute('src',mediaPicture);
-        img.setAttribute('src',mediaVideo);
  
         const imgTitle = document.createElement('p');
         imgTitle.innerHTML = title;
 
         const likeImg = document.createElement('p');
         likeImg.innerHTML = likes;
-        // const iconHeart = document.createElement('i');
-        // iconHeart.classList.add('fa-heart');
-
-        imgCard.appendChild(img);
-        imgCard.appendChild(imgTitle);
-        imgCard.appendChild(likeImg);
-        // imgCard.appendChild(iconHeart);
-        mediaDiv.appendChild(imgCard);
+       
+        mediaCard.appendChild(img);
+        mediaCard.appendChild(imgTitle);
+        mediaCard.appendChild(likeImg);
+        mediaDiv.appendChild(mediaCard);
 
         return (mediaDiv)   
     } 
-        return {id,photographerId,title, getMediaCardDOM}
+    
+    function getMediaCardDOMVideo() {
+        const videoCard = document.createElement('video');
+        videoCard.classList.add('videocard')
+
+        const source = document.createElement('source');
+        source.setAttribute('src',mediaVideo);
+
+        const imgTitle = document.createElement('p');
+        imgTitle.innerHTML = title;
+
+        const likeImg = document.createElement('p');
+        likeImg.innerHTML = likes;
+
+        videoCard.appendChild(source);
+        videoCard.appendChild(imgTitle);
+        videoCard.appendChild(likeImg);
+        mediaDiv.appendChild(videoCard);
+
+        return (mediaDiv)  
+    }
+        return {id,photographerId,title, getMediaCardDOMImage,getMediaCardDOMVideo}
 }
+
+
+// function mediaFactory(media,photographer) {
+    
+//     const {id,photographerId,title,image,video,likes,date,price} = media;
+//     const mediaPicture = `assets/photographers/${photographer[5].name}/${image}`;
+//     const mediaVideo = `assets/photographers/${photographer[5].name}/${video}`;
+   
+
+//     function getMediaCardDOMImage() {
+//         const mediaCard = document.createElement('div');
+//         mediaCard.classList.add('card')
+
+//         const img = document.createElement('img');
+//         img.setAttribute('src',mediaPicture);
+ 
+//         const imgTitle = document.createElement('p');
+//         imgTitle.innerHTML = title;
+
+//         const likeImg = document.createElement('p');
+//         likeImg.innerHTML = likes;
+       
+//         mediaCard.appendChild(img);
+//         mediaCard.appendChild(imgTitle);
+//         mediaCard.appendChild(likeImg);
+//         mediaDiv.appendChild(mediaCard);
+
+//         return (mediaDiv)   
+//     } 
+    
+//     function getMediaCardDOMVideo() {
+//         const mediaCard = document.createElement('div');
+//         mediaCard.classList.add('card')
+
+//         const video = document.createElement('video');
+//         video.setAttribute('src',mediaVideo);
+
+//         const imgTitle = document.createElement('p');
+//         imgTitle.innerHTML = title;
+
+//         const likeImg = document.createElement('p');
+//         likeImg.innerHTML = likes;
+
+//         mediaCard.appendChild(video);
+//         mediaCard.appendChild(imgTitle);
+//         mediaCard.appendChild(likeImg);
+//         mediaDiv.appendChild(mediaCard);
+
+//         return (mediaDiv)  
+//     }
+//         return {id,photographerId,title, getMediaCardDOMImage,getMediaCardDOMVideo}
+// }
 
 
 // Photographer Factory
