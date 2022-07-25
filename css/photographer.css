@@ -2,6 +2,16 @@
     display: none;
 }
 
+.overlay {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(228, 221, 221);
+    opacity: 0.5;
+    position: fixed;
+    display: none;
+    z-index: 1;
+}
+
 .photograph-header {
     background-color: #FAFAFA;
     height: 300px;
@@ -24,7 +34,7 @@
 .modal {
     border-radius: 5px;
     background-color: #DB8876;
-    width: 40%;
+    width: 35%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -108,10 +118,16 @@ form input {
     color: #DB8876;
 }
 
+.videocard {
+    width: 340px;
+    height: 340px;
+    object-fit: cover;
+}
+
 .like-price {
     height: 45px;
     width: 300px;
-    /* position: fixed; */
+    position: fixed;
     background-color: #DB8876;
     bottom: 0;
     right: 30px;

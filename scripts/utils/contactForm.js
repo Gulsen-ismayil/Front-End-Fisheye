@@ -14,9 +14,11 @@ contactButton.addEventListener('click',launchContactModal)
 //     }
 
 const contactModal = document.getElementById("contact_modal");
+const overLay = document.querySelector('.overlay');
 function launchContactModal(e) {
     e.preventDefault();
     contactModal.style.display="block";
+    overLay.style.display="block"
 }
 
 function closeModal() {

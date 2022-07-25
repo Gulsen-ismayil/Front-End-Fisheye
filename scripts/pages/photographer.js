@@ -20,7 +20,7 @@ init();
 
 
 // filtrer et displaydata
-async function displayData(media,photographer) {
+async function displayData(media,photographers) {
     function filterMediaById(media) {
         if(media.photographerId==paramsId ) {    
             return true    
@@ -29,39 +29,61 @@ async function displayData(media,photographer) {
         }
     }
     
-    function filterPhotographerById(photographer) {
-        if(photographer.id==paramsId ) { 
+    function filterPhotographerById(photographers) {
+        if(photographers.id==paramsId ) { 
             return true    
         }else {
             return false
         }
     }
-    const Photographer = photographer.find(filterPhotographerById);
+    const photographerById = photographers.find(filterPhotographerById);
     const mediaArreyById = media.filter(filterMediaById);
     
-    const photographerModel = photographerFactory(Photographer);
-    const userCardDOM = photographerModel.getUserCardDOM();
+    const photographerBlock = photographerFactory(photographerById);
+    const userCardDOM = photographerBlock.getUserCardDOM();
     photographHeader.appendChild(userCardDOM);
+
+    let sum = 0;
     
     mediaArreyById.forEach((media) => {
-        const mediaModel = mediaFactory(media,photographer);
-        const mediaCardDOMImage = mediaModel.getMediaCardDOMImage();
-        main.appendChild(mediaCardDOMImage);
+        sum += media.likes;
+        const mediaBlock = mediaFactory(media,photographerById);
+        main.appendChild(mediaBlock);
     })
+
+    const likePrice = document.querySelector('.like-price');
+    const pricePhotographer = document.createElement('span');
+    pricePhotographer.innerText = photographerById.price + '€ / jour';
+    const totalLikePhotographers = document.createElement('span');
+    totalLikePhotographers.innerText = sum;
+
+    const likeIcon = document.createElement('i')
+    likeIcon.classList.add('fa-solid')
+    likeIcon.classList.add('fa-heart')
+    likePrice.appendChild(totalLikePhotographers);
+    likePrice.appendChild(likeIcon);
+    likePrice.appendChild(pricePhotographer);
 };
 
 
 // Media factory 
 
 function mediaFactory(media,photographer) {
-   
-    const {id,photographerId,title,image,video,likes,date,price} = media;
-    
-        const mediaPicture = `assets/photographers/${photographer[0].name}/${image}`
-        const mediaVideo = `assets/photographers/${photographer[0].name}/${video}`;
-    
+    let mediaDOM;
+        if(media.image){
+            mediaDOM = getMediaCardDOMImage(media,photographer);
+        }else if(media.video) {
+            mediaDOM = getMediaCardDOMVideo(media,photographer);
+        }
+     
+    return mediaDOM ;
+}
 
-    function getMediaCardDOMImage() {
+function getMediaCardDOMImage(media,photographer) {
+
+        const {title,image,likes} = media;
+        const mediaPicture = `assets/photographers/${photographer.name}/${image}`
+        
         const mediaCard = document.createElement('div');
         mediaCard.classList.add('imgcard')
 
@@ -77,27 +99,25 @@ function mediaFactory(media,photographer) {
         const likeImg = document.createElement('p');
         likeImg.innerHTML = likes;
         const likeIcon = document.createElement('i')
-        // likeIcon.classList.add('fa-solid fa-heart')
+        likeIcon.classList.add('fa-solid')
+        likeIcon.classList.add('fa-heart')
         
-        const likePrice = document.querySelector('.like-price');
-        const pricePhotographer = document.createElement('p');
-        pricePhotographer.innerText = photographer[0].price + '€ / jour';
-    
-  
-       
+
+           
         mediaCard.appendChild(img);
         descriptionImg.appendChild(imgTitle);
         descriptionImg.appendChild(likeImg);
         descriptionImg.appendChild(likeIcon);
-        likePrice.appendChild(pricePhotographer)
         mediaCard.appendChild(descriptionImg);
         mediaDiv.appendChild(mediaCard);
-        mediaDiv.appendChild(likePrice);
 
         return (mediaDiv)   
     } 
     
-    function getMediaCardDOMVideo() {
+    function getMediaCardDOMVideo(media,photographer) {
+        const {title,video,likes} = media;
+        const mediaVideo = `assets/photographers/${photographer.name}/${video}`;
+
         const videoCard = document.createElement('video');
         videoCard.classList.add('videocard')
 
@@ -117,61 +137,6 @@ function mediaFactory(media,photographer) {
 
         return (mediaDiv)  
     }
-        return {id,photographerId,title, getMediaCardDOMImage,getMediaCardDOMVideo}
-
-}
-
-
-// function mediaFactory(media,photographer) {
-    
-//     const {id,photographerId,title,image,video,likes,date,price} = media;
-//     const mediaPicture = `assets/photographers/${photographer[5].name}/${image}`;
-//     const mediaVideo = `assets/photographers/${photographer[5].name}/${video}`;
-   
-
-//     function getMediaCardDOMImage() {
-//         const mediaCard = document.createElement('div');
-//         mediaCard.classList.add('card')
-
-//         const img = document.createElement('img');
-//         img.setAttribute('src',mediaPicture);
- 
-//         const imgTitle = document.createElement('p');
-//         imgTitle.innerHTML = title;
-
-//         const likeImg = document.createElement('p');
-//         likeImg.innerHTML = likes;
-       
-//         mediaCard.appendChild(img);
-//         mediaCard.appendChild(imgTitle);
-//         mediaCard.appendChild(likeImg);
-//         mediaDiv.appendChild(mediaCard);
-
-//         return (mediaDiv)   
-//     } 
-    
-//     function getMediaCardDOMVideo() {
-//         const mediaCard = document.createElement('div');
-//         mediaCard.classList.add('card')
-
-//         const video = document.createElement('video');
-//         video.setAttribute('src',mediaVideo);
-
-//         const imgTitle = document.createElement('p');
-//         imgTitle.innerHTML = title;
-
-//         const likeImg = document.createElement('p');
-//         likeImg.innerHTML = likes;
-
-//         mediaCard.appendChild(video);
-//         mediaCard.appendChild(imgTitle);
-//         mediaCard.appendChild(likeImg);
-//         mediaDiv.appendChild(mediaCard);
-
-//         return (mediaDiv)  
-//     }
-//         return {id,photographerId,title, getMediaCardDOMImage,getMediaCardDOMVideo}
-// }
 
 
 // Photographer Factory
