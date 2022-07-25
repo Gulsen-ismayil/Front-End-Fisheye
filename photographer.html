@@ -5,6 +5,7 @@
     <link href="css/photographer.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="assets/favicon.png">
+    <script src="https://kit.fontawesome.com/0a1e7f6dec.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
     <title>Fisheye - photographe </title>
   </head>
@@ -15,10 +16,14 @@
       </a>
     </header>
     <main id="main">
-      <div class="photograph-header">
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
-      </div>
-      <div class="media" ></div>
+        <div class="photograph-header">
+          <button class="contact_button" >Contactez-moi</button>
+        </div>
+        <!-- onclick="displayModal()" -->
+        <div class="media" ></div>
+
+        <div class="like-price"></div>
+
     </main>
     <div id="contact_modal">
 			<div class="modal">
@@ -28,9 +33,33 @@
         </header>
 				<form>
 					<div>
-						<label>Prénom</label>
-						<input />
+						<label for="first">Prénom</label>
+						<input 
+            type="text"
+            id="first"
+            name="first"/>
 					</div>
+          <div>
+            <label for="last">Nom</label>
+            <input 
+            type="text"
+            id="last"
+            name="last"/>
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input 
+            type="email"
+            id="email"
+            name="email"/>
+          </div>
+          <div>
+            <label for="message">Votre message</label>
+            <input 
+            type="textarea"
+            id="message"
+            class="textarea"/>
+          </div>
           <button class="contact_button">Envoyer</button>
 				</form>
 			</div>

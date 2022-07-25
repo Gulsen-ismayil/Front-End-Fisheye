@@ -21,7 +21,6 @@ init();
 
 // filtrer et displaydata
 async function displayData(media,photographer) {
- 
     function filterMediaById(media) {
         if(media.photographerId==paramsId ) {    
             return true    
@@ -38,7 +37,6 @@ async function displayData(media,photographer) {
         }
     }
     const Photographer = photographer.find(filterPhotographerById);
-    
     const mediaArreyById = media.filter(filterMediaById);
     
     const photographerModel = photographerFactory(Photographer);
@@ -47,8 +45,8 @@ async function displayData(media,photographer) {
     
     mediaArreyById.forEach((media) => {
         const mediaModel = mediaFactory(media,photographer);
-        const mediaCardDOM = mediaModel.getMediaCardDOMImage();
-        main.appendChild(mediaCardDOM);
+        const mediaCardDOMImage = mediaModel.getMediaCardDOMImage();
+        main.appendChild(mediaCardDOMImage);
     })
 };
 
@@ -56,12 +54,12 @@ async function displayData(media,photographer) {
 // Media factory 
 
 function mediaFactory(media,photographer) {
-    
+   
     const {id,photographerId,title,image,video,likes,date,price} = media;
-    const mediaPicture = `assets/photographers/${photographer[5].name}/${image}`;
-    console.log(photographer)
-    // const mediaVideo = `assets/photographers/${photographer[5].name}/${video}`;
-  
+    
+        const mediaPicture = `assets/photographers/${photographer[0].name}/${image}`
+        const mediaVideo = `assets/photographers/${photographer[0].name}/${video}`;
+    
 
     function getMediaCardDOMImage() {
         const mediaCard = document.createElement('div');
@@ -71,16 +69,30 @@ function mediaFactory(media,photographer) {
         img.classList.add('mediaimage')
         img.setAttribute('src',mediaPicture);
  
+        const descriptionImg = document.createElement('div');
+        descriptionImg.classList.add('description-img');
+
         const imgTitle = document.createElement('p');
         imgTitle.innerHTML = title;
-
         const likeImg = document.createElement('p');
         likeImg.innerHTML = likes;
+        const likeIcon = document.createElement('i')
+        // likeIcon.classList.add('fa-solid fa-heart')
+        
+        const likePrice = document.querySelector('.like-price');
+        const pricePhotographer = document.createElement('p');
+        pricePhotographer.innerText = photographer[0].price + '€ / jour';
+    
+  
        
         mediaCard.appendChild(img);
-        mediaCard.appendChild(imgTitle);
-        mediaCard.appendChild(likeImg);
+        descriptionImg.appendChild(imgTitle);
+        descriptionImg.appendChild(likeImg);
+        descriptionImg.appendChild(likeIcon);
+        likePrice.appendChild(pricePhotographer)
+        mediaCard.appendChild(descriptionImg);
         mediaDiv.appendChild(mediaCard);
+        mediaDiv.appendChild(likePrice);
 
         return (mediaDiv)   
     } 
@@ -106,6 +118,7 @@ function mediaFactory(media,photographer) {
         return (mediaDiv)  
     }
         return {id,photographerId,title, getMediaCardDOMImage,getMediaCardDOMVideo}
+
 }
 
 
