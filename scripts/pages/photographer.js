@@ -2,8 +2,8 @@ import {getPhotographers} from '../utils/fetch.js';
 
 // DOM
 const url = document.location.href;
-const urlData = new URL(url);
-const params = new URLSearchParams(urlData.search);
+const urlId = new URL(url);
+const params = new URLSearchParams(urlId.search);
 const paramsId = params.get('id')
 
 const photographHeader = document.querySelector('.photograph-header');
@@ -143,7 +143,7 @@ function getMediaCardDOMImage(media,photographer) {
 
 function photographerFactory(data) {
 
-    const { name, portrait,city,country,tagline,price,id } = data;
+    const { name, portrait,city,country,tagline,id } = data;
     const picture = `assets/photographers/${portrait}`;
 
     function getUserCardDOM() {

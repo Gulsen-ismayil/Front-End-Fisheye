@@ -10,6 +10,7 @@
             const userCardDOM = photographerModel.getUserCardDOM();
             photographersSection.appendChild(userCardDOM);
         });
+        console.log(photographers)
     };
 
     async function init() {
