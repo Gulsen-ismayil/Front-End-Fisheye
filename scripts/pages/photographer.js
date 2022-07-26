@@ -20,7 +20,7 @@ init();
 
 
 // filtrer et displaydata
-async function displayData(media,photographers) {
+export async function displayData(media,photographers) {
     function filterMediaById(media) {
         if(media.photographerId==paramsId ) {    
             return true    
@@ -29,7 +29,7 @@ async function displayData(media,photographers) {
         }
     }
     
-    function filterPhotographerById(photographers) {
+     function filterPhotographerById(photographers) {
         if(photographers.id==paramsId ) { 
             return true    
         }else {
@@ -38,7 +38,7 @@ async function displayData(media,photographers) {
     }
     const photographerById = photographers.find(filterPhotographerById);
     const mediaArreyById = media.filter(filterMediaById);
-    
+
     const photographerBlock = photographerFactory(photographerById);
     const userCardDOM = photographerBlock.getUserCardDOM();
     photographHeader.appendChild(userCardDOM);
@@ -165,7 +165,7 @@ console.log(descriptionVideo)
 
 function photographerFactory(data) {
 
-    const { name, portrait,city,country,tagline,id } = data;
+    const { name, portrait,city,country,tagline} = data;
     const picture = `assets/photographers/${portrait}`;
 
     function getUserCardDOM() {

@@ -90,6 +90,11 @@ form input {
 }
 
 .textarea {
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    margin: 1px;
+    font-size: 20px;
     height: 150px;
 }
 
