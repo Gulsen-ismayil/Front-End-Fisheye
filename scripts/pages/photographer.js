@@ -46,7 +46,7 @@ async function displayData(media,photographers) {
     let sum = 0;
     
     mediaArreyById.forEach((media) => {
-        sum += media.likes;
+        sum = media.likes + sum;
         const mediaBlock = mediaFactory(media,photographerById);
         main.appendChild(mediaBlock);
     })
@@ -60,8 +60,12 @@ async function displayData(media,photographers) {
     const likeIcon = document.createElement('i')
     likeIcon.classList.add('fa-solid')
     likeIcon.classList.add('fa-heart')
-    likePrice.appendChild(totalLikePhotographers);
-    likePrice.appendChild(likeIcon);
+
+    const likeTotalDiv = document.createElement('div');
+    likeTotalDiv.classList.add('liketotal');
+    likeTotalDiv.appendChild(totalLikePhotographers);
+    likeTotalDiv.appendChild(likeIcon);
+    likePrice.appendChild(likeTotalDiv);
     likePrice.appendChild(pricePhotographer);
 };
 
@@ -87,12 +91,16 @@ function getMediaCardDOMImage(media,photographer) {
         const mediaCard = document.createElement('div');
         mediaCard.classList.add('imgcard')
 
+        const imgA = document.createElement('a');
+        imgA.setAttribute('href','#');
         const img = document.createElement('img');
         img.classList.add('mediaimage')
         img.setAttribute('src',mediaPicture);
  
         const descriptionImg = document.createElement('div');
         descriptionImg.classList.add('description-img');
+        const likeDiv = document.createElement('div');
+        likeDiv.classList.add('likediv')
 
         const imgTitle = document.createElement('p');
         imgTitle.innerHTML = title;
@@ -102,12 +110,12 @@ function getMediaCardDOMImage(media,photographer) {
         likeIcon.classList.add('fa-solid')
         likeIcon.classList.add('fa-heart')
         
-
-           
-        mediaCard.appendChild(img);
+        imgA.appendChild(img);
+        mediaCard.appendChild(imgA);
+        likeDiv.appendChild(likeImg);
+        likeDiv.appendChild(likeIcon);
         descriptionImg.appendChild(imgTitle);
-        descriptionImg.appendChild(likeImg);
-        descriptionImg.appendChild(likeIcon);
+        descriptionImg.appendChild(likeDiv);
         mediaCard.appendChild(descriptionImg);
         mediaDiv.appendChild(mediaCard);
 
@@ -118,23 +126,37 @@ function getMediaCardDOMImage(media,photographer) {
         const {title,video,likes} = media;
         const mediaVideo = `assets/photographers/${photographer.name}/${video}`;
 
+        const videoDiv =document.createElement('div');
         const videoCard = document.createElement('video');
         videoCard.classList.add('videocard')
 
         const source = document.createElement('source');
         source.setAttribute('src',mediaVideo);
+        source.setAttribute('type','video/mp4');
+
+        const descriptionVideo = document.createElement('div');
+        descriptionVideo.classList.add('description-video');
+        const likeDiv = document.createElement('div');
+        likeDiv.classList.add('likediv')
 
         const imgTitle = document.createElement('p');
         imgTitle.innerHTML = title;
 
         const likeImg = document.createElement('p');
         likeImg.innerHTML = likes;
+        const likeIcon = document.createElement('i')
+        likeIcon.classList.add('fa-solid')
+        likeIcon.classList.add('fa-heart')
 
+        videoDiv.appendChild(videoCard);
         videoCard.appendChild(source);
-        videoCard.appendChild(imgTitle);
-        videoCard.appendChild(likeImg);
-        mediaDiv.appendChild(videoCard);
-
+        videoCard.appendChild(descriptionVideo);
+        descriptionVideo.appendChild(imgTitle);
+        descriptionVideo.appendChild(likeDiv);
+        likeDiv.appendChild(likeImg);
+        likeDiv.appendChild(likeIcon);
+        mediaDiv.appendChild(videoDiv);
+console.log(descriptionVideo)
         return (mediaDiv)  
     }
 
@@ -147,39 +169,22 @@ function photographerFactory(data) {
     const picture = `assets/photographers/${portrait}`;
 
     function getUserCardDOM() {
-        const a = document.createElement('a');
-        a.setAttribute('href',`photographer.html?id=${id}`);
         const article = document.createElement( 'article' );
 
-        const img = document.createElement( 'img' );
+        const img = document.querySelector('.photograph-img')
         img.setAttribute("src", picture);
         img.setAttribute('alt', name);
 
-        const descriptionDiv = document.createElement('div');
-        descriptionDiv.classList.add('description')
-
-        const photographButton = document.querySelector('.contact_button');
-
-        const h2 = document.createElement( 'h2' );
+        const h2 = document.querySelector('h2');
         h2.textContent = name;
 
-        const localisationDiv = document.createElement('div');
-        localisationDiv.classList.add('localisation');
+        const localisationDiv = document.querySelector('.localisation');
         localisationDiv.innerHTML = city + ', ' + country ;
 
-        const para = document.createElement('p');
-        para.classList.add('paragraph')
-        para.innerHTML = tagline;
+        const paragraph = document.querySelector('.paragraph')
+        paragraph.innerHTML = tagline;
 
-        descriptionDiv.appendChild(h2);
-        descriptionDiv.appendChild(localisationDiv);
-        descriptionDiv.appendChild(para);
-        article.appendChild(descriptionDiv);
-        article.appendChild(photographButton);
-        article.appendChild(img);
-        a.appendChild(article);
-
-        return (a);
+        return (article);
     }
     return { name, picture, getUserCardDOM }
 }

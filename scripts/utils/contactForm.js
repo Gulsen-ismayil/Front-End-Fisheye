@@ -1,27 +1,23 @@
-
-// Contact Modal 
-
+// import { photographerFactory } from "../factories/photographer.js";
+// DOM
 const contactButton = document.querySelector('.contact_button');
-console.log(contactButton)
-// contactButton.forEach((button)=> {
-//     button.addEventListener('click',launchContactModal)
-// }) 
-contactButton.addEventListener('click',launchContactModal)  
-// function displayModal() {
-//     console.log(3554)
-//     contactButton.addEventListener('click',launchContactModal)
-   
-//     }
-
 const contactModal = document.getElementById("contact_modal");
 const overLay = document.querySelector('.overlay');
+const closeModalButton = document.querySelector('.closemodal');
+
+contactButton.addEventListener('click',launchContactModal); 
 function launchContactModal(e) {
     e.preventDefault();
     contactModal.style.display="block";
     overLay.style.display="block"
 }
 
+closeModalButton.addEventListener('click',closeModal);
 function closeModal() {
-    const modal = document.getElementById("contact_modal");
-    modal.style.display = "none";
+    contactModal.style.display = "none";
+    overLay.style.display="none";
 }
+
+// function titleContactezmoi {
+
+// }

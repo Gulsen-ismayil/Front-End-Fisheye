@@ -63,7 +63,7 @@ h1 {
     width: 200px;
 }
 
-.photograph-header article img {
+.photograph-img {
     object-fit: cover;
     border-radius: 50%;
     height: 200px;

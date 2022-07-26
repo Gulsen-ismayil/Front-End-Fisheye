@@ -118,6 +118,16 @@ form input {
     color: #DB8876;
 }
 
+.likediv {
+    display: flex;
+    justify-content: space-between;
+    width: 13%;
+}
+
+.likediv i {
+    padding-top: 17px;
+}
+
 .videocard {
     width: 340px;
     height: 340px;
@@ -125,10 +135,25 @@ form input {
 }
 
 .like-price {
-    height: 45px;
+    height: 30px;
     width: 300px;
     position: fixed;
     background-color: #DB8876;
     bottom: 0;
     right: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1%;
+    font-size: 18px;
+}
+
+.liketotal {
+    display: flex;
+    justify-content: space-between;
+    width: 20%;
+}
+
+.liketotal i {
+    margin-top: 5%;
 }
