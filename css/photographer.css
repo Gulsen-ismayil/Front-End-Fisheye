@@ -89,6 +89,10 @@ form input {
     font-size: 20px;
 }
 
+.formdata[error=true] .text-control {
+    border: 2px solid #e54858;
+}
+
 .textarea {
     width: 100%;
     border: none;
@@ -137,6 +141,12 @@ form input {
     width: 340px;
     height: 340px;
     object-fit: cover;
+}
+
+.description-video {
+    display: flex;
+    justify-content: space-between;
+    color: #DB8876;
 }
 
 .like-price {

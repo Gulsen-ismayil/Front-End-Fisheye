@@ -1,11 +1,6 @@
-import {getPhotographers} from '../utils/fetch.js';
-
+import {getPhotographers} from '../utils/util.js';
+import {url,urlId,params,paramsId} from'../utils/util.js';
 // DOM
-const url = document.location.href;
-const urlId = new URL(url);
-const params = new URLSearchParams(urlId.search);
-const paramsId = params.get('id')
-
 const photographHeader = document.querySelector('.photograph-header');
 const main = document.querySelector('main');
 const mediaDiv = document.querySelector('.media');
@@ -20,7 +15,7 @@ init();
 
 
 // filtrer et displaydata
-export async function displayData(media,photographers) {
+async function displayData(media,photographers) {
     function filterMediaById(media) {
         if(media.photographerId==paramsId ) {    
             return true    
@@ -91,8 +86,8 @@ function getMediaCardDOMImage(media,photographer) {
         const mediaCard = document.createElement('div');
         mediaCard.classList.add('imgcard')
 
-        const imgA = document.createElement('a');
-        imgA.setAttribute('href','#');
+        const mediaA = document.createElement('a');
+        mediaA.setAttribute('href',mediaPicture);
         const img = document.createElement('img');
         img.classList.add('mediaimage')
         img.setAttribute('src',mediaPicture);
@@ -110,8 +105,8 @@ function getMediaCardDOMImage(media,photographer) {
         likeIcon.classList.add('fa-solid')
         likeIcon.classList.add('fa-heart')
         
-        imgA.appendChild(img);
-        mediaCard.appendChild(imgA);
+        mediaA.appendChild(img);
+        mediaCard.appendChild(mediaA);
         likeDiv.appendChild(likeImg);
         likeDiv.appendChild(likeIcon);
         descriptionImg.appendChild(imgTitle);
@@ -127,12 +122,14 @@ function getMediaCardDOMImage(media,photographer) {
         const mediaVideo = `assets/photographers/${photographer.name}/${video}`;
 
         const videoDiv =document.createElement('div');
+        const mediaA = document.createElement('a');
+        mediaA.setAttribute('href',mediaVideo);
         const videoCard = document.createElement('video');
         videoCard.classList.add('videocard')
+        videoCard.setAttribute('controls','');
 
         const source = document.createElement('source');
         source.setAttribute('src',mediaVideo);
-        source.setAttribute('type','video/mp4');
 
         const descriptionVideo = document.createElement('div');
         descriptionVideo.classList.add('description-video');
@@ -148,24 +145,25 @@ function getMediaCardDOMImage(media,photographer) {
         likeIcon.classList.add('fa-solid')
         likeIcon.classList.add('fa-heart')
 
-        videoDiv.appendChild(videoCard);
+        videoDiv.appendChild(mediaA);
+        mediaA.appendChild(videoCard)
         videoCard.appendChild(source);
-        videoCard.appendChild(descriptionVideo);
+        videoDiv.appendChild(descriptionVideo);
         descriptionVideo.appendChild(imgTitle);
         descriptionVideo.appendChild(likeDiv);
         likeDiv.appendChild(likeImg);
         likeDiv.appendChild(likeIcon);
         mediaDiv.appendChild(videoDiv);
-console.log(descriptionVideo)
+
         return (mediaDiv)  
     }
 
 
 // Photographer Factory
 
-function photographerFactory(data) {
-
+export function photographerFactory(data) {
     const { name, portrait,city,country,tagline} = data;
+   
     const picture = `assets/photographers/${portrait}`;
 
     function getUserCardDOM() {

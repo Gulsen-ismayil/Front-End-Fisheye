@@ -1,5 +1,5 @@
     import { photographerFactory } from "../factories/photographer.js";
-    import {getPhotographers} from'../utils/fetch.js';
+    import {getPhotographers} from'../utils/util.js';
 
 
     async function displayData(photographers) {

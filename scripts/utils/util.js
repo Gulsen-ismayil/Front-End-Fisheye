@@ -5,3 +5,10 @@ export async function getPhotographers() {
    
     return dataPhotographers;
 }
+
+// DOM
+export const url = document.location.href;
+export const urlId = new URL(url);
+export const params = new URLSearchParams(urlId.search);
+export const paramsId = params.get('id')
+
