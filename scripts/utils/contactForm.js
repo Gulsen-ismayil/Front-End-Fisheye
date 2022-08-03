@@ -1,10 +1,10 @@
-
+import { photographer,medias } from "../pages/photographer.js";
 // DOM
 const contactButton = document.querySelector('.contactbutton');
 const sendButton = document.querySelector('.sendbutton');
 const contactModal = document.getElementById("contact_modal");
 const overLay = document.querySelector('.overlay');
-const closeModalButton = document.querySelector('.closemodal');
+const closeModalButton = document.querySelectorAll('.closemodal');
 const h2contactezmoi = document.querySelector('.modaltitle');
 const formulaire = document.querySelector('form');
 const formData = document.querySelectorAll('.formdata');
@@ -12,7 +12,9 @@ const formData = document.querySelectorAll('.formdata');
 
 // event
 contactButton.addEventListener('click',launchContactModal); 
-closeModalButton.addEventListener('click',closeModal);
+closeModalButton.forEach((close=> {
+close.addEventListener('click',closeModal)
+}));
 sendButton.addEventListener('click',launchSend);
 
 // function modal 
@@ -29,9 +31,9 @@ function closeModal() {
     overLay.style.display="none";
 }
 
-function titleContactezmoi(name) {
+function titleContactezmoi() {
     
-    h2contactezmoi.innerText = `Contactez-moi ${name}`;
+    h2contactezmoi.innerText = `Contactez-moi ${photographer.name}`;
 };
 
 
@@ -44,13 +46,14 @@ function launchSend(e) {
     if(valide) {
         console.log('merci')
     }else {
-        console.log('n4est pas valide')
+        console.log('nest pas valide')
     }
 }
 
 function validate() {
     let isValide = true;
    if(validateName(formulaire.first.value)) {
+    console.log(formulaire.first.value)
     formData[0].setAttribute('error','false')
    }else {
     formData[0].setAttribute('error','true')
@@ -59,6 +62,7 @@ function validate() {
    }
 
    if(validateName(formulaire.last.value)){
+    console.log(formulaire.last.value)
     formData[1].setAttribute('error','false')
    }else {
     formData[1].setAttribute('error','true')
@@ -66,6 +70,7 @@ function validate() {
    }
 
    if(validateEmail(formulaire.email.value)){
+    console.log(formulaire.email.value)
     formData[2].setAttribute('error','false')
    }else {
     formData[2].setAttribute('error','true')
@@ -108,13 +113,13 @@ function validateEmail(mail) {
 }
 
 function validateMessage(message) {
-const text = new Text(message)
+    const text = new Text(message)
 
-if(text.length>0 && text.length<20){
-    return true;
-}else {
-    return false;
-}
+    if(text.length>0 && text.length<20){
+        return true;
+    }else {
+        return false;
+    }
 }
 
 

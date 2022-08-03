@@ -9,8 +9,20 @@
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
     <title>Fisheye - photographe </title>
   </head>
+
   <body>
     <div class="overlay"></div>
+    <!-- lightbox -->
+    <dialog class="lightbox-modal" open>
+      <!-- <img class="closemodal" src="assets/icons/close.svg"  /> -->
+      <i class="fa-solid fa-xmark closemodal"></i>
+      <div class="lightbox-modal-content">
+        <i class="fa-solid fa-angle-left prev"></i>
+        <img class="lightbox-img" src="" alt="">
+        <i class="fa-solid fa-angle-right next"></i>
+      </div>
+    </dialog>
+    
     <header>
       <a href="index.html">
         <img src="assets/images/logo.png" alt="Fisheye Home Page" class="logo" />
@@ -29,10 +41,25 @@
           </article>
         </div>
     
-        <div class="media" ></div>
+        <div class="media" >
+          <!-- <div class="imgcard">
+            <a href="" class="mediaA">
+              <img src="" alt="" class="mediaimage">
+            </a>
+            <div class="description-img">
+              <p class="imgtitle"></p>
+              <div class="likediv">
+                <p class="likenumber"></p>
+                <i class="fa-solid fa-heart likeicon"></i>
+              </div>
+            </div>
+          </div> -->
+        </div>
 
         <div class="like-price"></div>
 
+
+        <!-- modal -->
 
         <div id="contact_modal">
           <div class="modal">
@@ -75,7 +102,8 @@
             </form>
           </div>
         </div>
-    </main>
+      </main>
+
     
     <script src="scripts/utils/contactForm.js" type="module"></script>
     <script src="scripts/pages/photographer.js" type="module"></script>

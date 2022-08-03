@@ -31,6 +31,8 @@
     cursor: pointer;
 }
 
+/* modal */
+
 .modal {
     border-radius: 5px;
     background-color: #DB8876;
@@ -55,7 +57,7 @@
 }
 
 .modal header h2 {
-    font-size: 40px;
+    font-size: 35px;
     font-weight: normal;
     text-align: center;
 }
@@ -171,4 +173,39 @@ form input {
 
 .liketotal i {
     margin-top: 5%;
+}
+
+/* lightbox */
+
+.lightbox-modal {
+    width: 80%;
+    height: 700px;
+    margin: auto;
+    display: none;
+    margin-top: 50px;
+    border: none;
+}
+
+.closemodal {
+    color: #901C1C;
+    font-size: 60px;
+    float: right;
+}
+
+.lightbox-modal-content {
+    display: flex;
+    justify-content: space-between;
+    font-size: 50px;
+    color: #901C1C;
+}
+
+.lightbox-img {
+    width: 70%;
+    height:600px;
+    margin-top: 5%;
+    object-fit: cover;
+}
+
+.prev , .next {
+    margin-top: 28%;
 }
