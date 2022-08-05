@@ -9,6 +9,7 @@ export let medias
 let number
 let sum
 let currentImage
+let likeIcon
 
 
 // recupere les datas
@@ -87,7 +88,8 @@ function mediaFactory(media,photographer) {
 function getMediaCardDOMImage(media,photographer) {
 
         const {title,image,likes,id} = media;
-        const mediaPicture = `assets/photographers/${photographer.name}/${image}`
+        const mediaPicture = `assets/photographers/${photographer.name}/${image}`;
+       
         
         const mediaCard = document.createElement('div');
         mediaCard.classList.add('imgcard')
@@ -113,8 +115,10 @@ function getMediaCardDOMImage(media,photographer) {
         const likeIcon = document.createElement('i')
         likeIcon.classList.add('fa-solid')
         likeIcon.classList.add('fa-heart')
+        likeIcon.classList.add('likeicon')
         likeIcon.setAttribute('data-id',id)
         likeIcon.addEventListener('click',clickIcon)
+        likeIcon.setAttribute('data-clicked','')
        
         
         // mediaA.appendChild(img);
@@ -161,6 +165,7 @@ function getMediaCardDOMImage(media,photographer) {
     function getMediaCardDOMVideo(media,photographer) {
         const {title,video,likes,id} = media;
         const mediaVideo = `assets/photographers/${photographer.name}/${video}`;
+        
 
         const videoDiv =document.createElement('div');
         // const mediaA = document.createElement('a');
@@ -278,11 +283,22 @@ function prevImage() {
 // like
 
 function clickIcon(e) {
+    // likeIcon = document.querySelector('.likeicon')
+    // likeIcon.setAttribute('data-clicked', true)
+    // console.log(likeIcon);
     const id = e.target.getAttribute('data-id');
-    let likenumbersDom = document.querySelector(`.likenumbers[data-id="${id}"]`);
-    number = parseInt(likenumbersDom.innerText)
-    number = number + 1
-    likenumbersDom.innerText = number
-    console.log(number);
+    let clicked = Boolean(e.target.getAttribute('data-clicked'));
+    console.log(clicked);
+
+    if(!clicked){
+        let likenumbersDom = document.querySelector(`.likenumbers[data-id="${id}"]`);
+        number = parseInt(likenumbersDom.innerText)
+        number = number + 1
+        likenumbersDom.innerText = number
+        clicked = true
+        console.log(clicked);
+    }
+    
+    
  }
 
