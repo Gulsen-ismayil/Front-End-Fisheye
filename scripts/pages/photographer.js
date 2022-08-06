@@ -9,7 +9,7 @@ export let medias
 let number
 let sum
 let currentImage
-let likeIcon
+let index
 
 
 // recupere les datas
@@ -239,6 +239,10 @@ export function photographerFactory(data) {
     return { name, picture, getUserCardDOM }
 }
 
+
+
+
+
 // lightbox 
 // DOM
 
@@ -247,7 +251,6 @@ const lightboxClose = document.querySelectorAll('.closemodal');
 const lightboxContent = document.querySelector('.lightbox-modal-content');
 const iconNext = document.querySelector('.next');
 const iconPrev = document.querySelector('.prev');
-
 // EVENT
 lightboxClose.forEach((close => {
     close.addEventListener('click',closeLightbox)
@@ -258,11 +261,13 @@ iconPrev.addEventListener('click',prevImage);
 
 // FUNCTION
 function openModal(e) {
+    let i 
     lightboxModal.style.display = 'block';
     const id = e.target.getAttribute('data-id');
     let imageDom = document.querySelector(`.mediaimage[data-id='${id}']`);
     currentImage = document.querySelector('.lightbox-img');
     currentImage.setAttribute('src',imageDom.src);
+  
 }
 
 function closeLightbox() {
@@ -272,6 +277,7 @@ function closeLightbox() {
 function nextImage() {
 
     currentImage.style.display = 'none';
+    console.log('halooo next');
   
 }
 
@@ -280,12 +286,31 @@ function prevImage() {
 }
 
 
+
+
 // like
 
 function clickIcon(e) {
     // likeIcon = document.querySelector('.likeicon')
     // likeIcon.setAttribute('data-clicked', true)
     // console.log(likeIcon);
+    // const id = e.target.getAttribute('data-id');
+    // let clicked = Boolean(e.target.getAttribute('data-clicked'));
+    // console.log(clicked);
+
+    // if(clicked){
+    //     let likenumbersDom = document.querySelector(`.likenumbers[data-id="${id}"]`);
+    //     number = parseInt(likenumbersDom.innerText)
+    //     number = number + 1
+    //     likenumbersDom.innerText = number
+    //     clicked = true
+    //     console.log(clicked);
+    // }else {
+    //     console.log('ohhhh');
+    //     clicked= true
+    // }
+    // console.log(clicked);
+    // return clicked
     const id = e.target.getAttribute('data-id');
     let clicked = Boolean(e.target.getAttribute('data-clicked'));
     console.log(clicked);
@@ -295,10 +320,10 @@ function clickIcon(e) {
         number = parseInt(likenumbersDom.innerText)
         number = number + 1
         likenumbersDom.innerText = number
-        clicked = true
+       
         console.log(clicked);
     }
-    
+    clicked = e.target.setAttribute('data-clicked',true)
     
  }
 
