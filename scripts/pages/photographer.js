@@ -6,9 +6,9 @@ const main = document.querySelector('main');
 const mediaDiv = document.querySelector('.media');
 export let photographer 
 export let medias 
+let mediaDOM
 let number
 let sum
-let currentImage
 let index
 
 
@@ -21,26 +21,52 @@ init();
 
 
 
-// filtrer et displaydata
-async function displayData(media,photographers) {
-    function filterMediaById(media) {
-        if(media.photographerId==paramsId ) {    
-            return true    
-        }else {
-            return false
-        }
-    }
+
+//  fonction pour trier 
+
+// function populerSort() {
+//     const number = (a,b) => a - b ;
     
-     function filterPhotographerById(photographers) {
-        if(photographers.id==paramsId ) { 
-            return true    
-        }else {
-            return false
-        }
+// }
+
+// function dateSort(a,b) {
+//     return new Date(a.date).valueOf() - new Date(b.date).valueOf();
+// }
+
+// function titleSort(a,b) {
+//     if(a.title > b.title) {
+//         return 1;
+//     }else if(b.title > b.title) {
+//         return -1;
+//     }else {
+//         return 0;
+//     }
+// }
+
+
+
+// filtrer et displaydata
+function filterMediaById(media) {
+    if(media.photographerId==paramsId ) {    
+        return true    
+    }else {
+        return false
     }
+}
+
+function filterPhotographerById(photographers) {
+   if(photographers.id==paramsId ) { 
+       return true    
+   }else {
+       return false
+   }
+}
+
+async function displayData(media,photographers) {
+    
     photographer = photographers.find(filterPhotographerById);
     medias = media.filter(filterMediaById);
-
+    
     const photographerBlock = photographerFactory(photographer);
     const userCardDOM = photographerBlock.getUserCardDOM();
     photographHeader.appendChild(userCardDOM);
@@ -51,7 +77,9 @@ async function displayData(media,photographers) {
         sum = media.likes + sum;
         const mediaBlock = mediaFactory(media,photographer);
         main.appendChild(mediaBlock);
+        index = medias.indexOf(media)
     })
+   
     
     
     const likePrice = document.querySelector('.like-price');
@@ -76,7 +104,6 @@ async function displayData(media,photographers) {
 // Media factory 
 
 function mediaFactory(media,photographer) {
-    let mediaDOM;
         if(media.image){
             mediaDOM = getMediaCardDOMImage(media,photographer);
         }else if(media.video) {
@@ -92,15 +119,14 @@ function getMediaCardDOMImage(media,photographer) {
        
         
         const mediaCard = document.createElement('div');
-        mediaCard.classList.add('imgcard')
+        // mediaCard.addEventListener('click',openModal);
+        mediaCard.classList.add('mediaimage')
 
-        // const mediaA = document.createElement('a');
-        // mediaA.setAttribute('href',mediaPicture);
         const img = document.createElement('img');
-        img.classList.add('mediaimage')
+        img.classList.add('imgVideoCard')
         img.setAttribute('src',mediaPicture);
-        img.addEventListener('click',openModal);
         img.setAttribute('data-id',id);
+        img.addEventListener('click',openModal);
         const descriptionImg = document.createElement('div');
         descriptionImg.classList.add('description-img');
         const likeDiv = document.createElement('div');
@@ -120,9 +146,7 @@ function getMediaCardDOMImage(media,photographer) {
         likeIcon.addEventListener('click',clickIcon)
         likeIcon.setAttribute('data-clicked','')
        
-        
-        // mediaA.appendChild(img);
-        // mediaCard.appendChild(mediaA);
+
         mediaCard.appendChild(img);
         likeDiv.appendChild(likeImg);
         likeDiv.appendChild(likeIcon);
@@ -131,52 +155,25 @@ function getMediaCardDOMImage(media,photographer) {
         mediaCard.appendChild(descriptionImg);
         mediaDiv.appendChild(mediaCard);
 
-
-
-
-
-        // test 
-
-    
-        // const img = document.querySelectorAll('mediaimage')
-        // img.forEach((img)=> {
-        //     img.setAttribute('src',mediaPicture);
-        //     img.addEventListener('click',imgModal);
-        // })
-        // const imgTitle =document.querySelectorAll('imgtitle')
-        // imgTitle.innerHTML = title;
-  
-        // const likeImg = document.querySelectorAll('likenumber')
-        // likeImg.innerHTML = likes;
-
-        // const likeIcon =document.querySelectorAll('likeicon')
-        // likeIcon.forEach((icon)=> {
-        //     icon.addEventListener('click',clickIcon)
-        // })
-        // function clickIcon() {
-        //     const likeImg = document.querySelector('likenumbers');
-        //     //  likeImg = likeImg +1 ;
-        //     console.log(mediaDiv)
-        //  }
-
         return mediaDiv   
     } 
   
     function getMediaCardDOMVideo(media,photographer) {
         const {title,video,likes,id} = media;
-        const mediaVideo = `assets/photographers/${photographer.name}/${video}`;
-        
+        const mediaVideoUrl = `assets/photographers/${photographer.name}/${video}`;
 
-        const videoDiv =document.createElement('div');
-        // const mediaA = document.createElement('a');
-        // mediaA.setAttribute('href',mediaVideo);
-        const videoCard = document.createElement('video');
-        videoCard.classList.add('videocard')
-        videoCard.setAttribute('controls','');
-        videoCard.addEventListener('click',openModal);
+        const mediaCard =document.createElement('div');
+        mediaCard.addEventListener('click',openModal);
+        mediaCard.classList.add('videocard')
+        const mediaVideo = document.createElement('video');
+        mediaVideo.classList.add('imgVideoCard')
+        mediaVideo.setAttribute('controls','');
+        mediaVideo.setAttribute('data-id',id);
+        mediaVideo.setAttribute('src',mediaVideoUrl);
 
-        const source = document.createElement('source');
-        source.setAttribute('src',mediaVideo);
+        // const source = document.createElement('source');
+        // source.setAttribute('src',mediaVideoUrl);
+        // source.classList.add('source')
 
         const descriptionVideo = document.createElement('div');
         descriptionVideo.classList.add('description-video');
@@ -196,16 +193,14 @@ function getMediaCardDOMImage(media,photographer) {
         likeIcon.setAttribute('data-id',id)
         likeIcon.addEventListener('click',clickIcon)
 
-        // videoDiv.appendChild(mediaA);
-        // mediaA.appendChild(videoCard)
-        videoDiv.appendChild(videoCard);
-        videoCard.appendChild(source);
-        videoDiv.appendChild(descriptionVideo);
+        mediaCard.appendChild(mediaVideo);
+        // mediaVideo.appendChild(source);
+        mediaCard.appendChild(descriptionVideo);
         descriptionVideo.appendChild(imgTitle);
         descriptionVideo.appendChild(likeDiv);
         likeDiv.appendChild(likeImg);
         likeDiv.appendChild(likeIcon);
-        mediaDiv.appendChild(videoDiv);
+        mediaDiv.appendChild(mediaCard);
 
         return (mediaDiv)  
     }
@@ -249,8 +244,21 @@ export function photographerFactory(data) {
 const lightboxModal = document.querySelector('.lightbox-modal');
 const lightboxClose = document.querySelectorAll('.closemodal');
 const lightboxContent = document.querySelector('.lightbox-modal-content');
+const lightboxMedia = document.querySelector('.lightbox-media');
 const iconNext = document.querySelector('.next');
 const iconPrev = document.querySelector('.prev');
+const currentImage = document.createElement('img');
+currentImage.setAttribute('src','')
+currentImage.classList.add('lightbox-img');
+const currentVideo = document.createElement('video');
+currentVideo.setAttribute('controls','')
+currentVideo.setAttribute('src','');
+currentVideo.classList.add('lightbox-video')
+lightboxContent.appendChild(lightboxMedia);
+lightboxMedia.appendChild(currentImage);
+lightboxMedia.appendChild(currentVideo)
+
+
 // EVENT
 lightboxClose.forEach((close => {
     close.addEventListener('click',closeLightbox)
@@ -260,15 +268,32 @@ iconNext.addEventListener('click',nextImage);
 iconPrev.addEventListener('click',prevImage);
 
 // FUNCTION
+
+
 function openModal(e) {
-    let i 
     lightboxModal.style.display = 'block';
     const id = e.target.getAttribute('data-id');
-    let imageDom = document.querySelector(`.mediaimage[data-id='${id}']`);
-    currentImage = document.querySelector('.lightbox-img');
-    currentImage.setAttribute('src',imageDom.src);
-  
+console.log(e.target);
+    let imageDom = document.querySelector(`.imgVideoCard[data-id='${id}']`);
+    let currentDom
+    medias.forEach((element)=> {
+        if(element.image) {
+            currentDom = currentImage.setAttribute('src',imageDom.src)
+        } else if(element.video) {
+            currentDom = currentVideo.setAttribute('src',imageDom.src)
+        } 
+        return currentDom
+    })
+    
+    // currentImage.setAttributeNS('src',imageVideoDom.source.src)
+    
+    medias.forEach(media => {
+        // const mediaId = media.filter(`${id}`)
+    })
+   
 }
+
+
 
 function closeLightbox() {
     lightboxModal.style.display = 'none';
@@ -288,42 +313,68 @@ function prevImage() {
 
 
 
+
+
+
+
 // like
 
 function clickIcon(e) {
-    // likeIcon = document.querySelector('.likeicon')
-    // likeIcon.setAttribute('data-clicked', true)
-    // console.log(likeIcon);
-    // const id = e.target.getAttribute('data-id');
-    // let clicked = Boolean(e.target.getAttribute('data-clicked'));
-    // console.log(clicked);
-
-    // if(clicked){
-    //     let likenumbersDom = document.querySelector(`.likenumbers[data-id="${id}"]`);
-    //     number = parseInt(likenumbersDom.innerText)
-    //     number = number + 1
-    //     likenumbersDom.innerText = number
-    //     clicked = true
-    //     console.log(clicked);
-    // }else {
-    //     console.log('ohhhh');
-    //     clicked= true
-    // }
-    // console.log(clicked);
-    // return clicked
     const id = e.target.getAttribute('data-id');
     let clicked = Boolean(e.target.getAttribute('data-clicked'));
-    console.log(clicked);
 
     if(!clicked){
         let likenumbersDom = document.querySelector(`.likenumbers[data-id="${id}"]`);
         number = parseInt(likenumbersDom.innerText)
         number = number + 1
         likenumbersDom.innerText = number
-       
-        console.log(clicked);
     }
     clicked = e.target.setAttribute('data-clicked',true)
-    
  }
+
+//  trier 
+
+const sortSelect = document.getElementById('sorting')
+
+sortSelect.addEventListener('change',function(e) {
+    if(e.target.value==='titre') {
+      titleSorting();
+    } else if(e.target.value==='date') {
+        dateSorting();
+    }else {
+        populerSorting();
+    }
+});
+
+function dateSorting(){
+    mediaDiv.innerHTML = '';
+    medias.sort((a,z) => {
+        return new Date(a.date).valueOf() - new Date(z.date).valueOf()
+    }) 
+    medias.forEach((element) => {
+        mediaFactory(element,photographer)
+    })
+}
+
+function populerSorting() {
+    mediaDiv.innerHTML = '';
+    medias.sort((a,z) => {
+        return parseInt(a.likes) - parseInt(z.likes)
+    })
+    console.log(medias);
+    medias.forEach((element) => {
+        mediaFactory(element,photographer)
+    })
+}
+
+function titleSorting() {
+    medias.sort((a,z)=> {
+        console.log(medias);
+        return a.title.localeCompare(z.title);
+    })
+    mediaDiv.innerHTML = '';
+    medias.forEach((element) => {
+        mediaFactory(element,photographer)
+    })
+}
 

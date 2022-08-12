@@ -1,7 +1,8 @@
 export async function getPhotographers() {
     const data = await fetch('data/photographers.json')
+    console.log(data);
     const dataPhotographers = await data.json()
-        // .then(data=>data.json())
+    console.log(dataPhotographers);
    
     return dataPhotographers;
 }

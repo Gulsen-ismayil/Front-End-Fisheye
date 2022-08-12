@@ -1,5 +1,5 @@
     import { photographerFactory } from "../factories/photographer.js";
-    import {getPhotographers} from'../utils/util.js';
+    import {getPhotographers} from'../utils/util.js';   
 
 
     async function displayData(photographers) {
@@ -10,14 +10,16 @@
             const userCardDOM = photographerModel.getUserCardDOM();
             photographersSection.appendChild(userCardDOM);
         });
-        console.log(photographers)
     };
-
+    
     async function init() {
         // Récupère les datas des photographes
         const { photographers } = await getPhotographers();
         displayData(photographers);
+        console.log(photographers);
     };
     
     init();
+    
+
     

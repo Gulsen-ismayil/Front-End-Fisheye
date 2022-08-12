@@ -104,6 +104,29 @@ form input {
     height: 150px;
 }
 
+/* trier  */
+
+.sort {
+    margin-left: 100px;
+    margin-top: 2%;
+    display: flex;
+    justify-content: space-between;
+    width: 20%;
+}
+
+.sort select {
+    background-color: #901C1C;
+    width: 120px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 15px;
+}
+
+.sort select option {
+    background-color: #901C1C;
+}
 
 /* media */
 .media {
@@ -112,12 +135,12 @@ form input {
     align-items: center;
     flex-wrap: wrap;
     height: 300px;
-    margin: 100px;
+    margin: 5% 100px;
     gap: 20px 20px;
 
 }
 
-.mediaimage {
+.imgVideoCard {
     width: 340px;
     height: 340px;
     object-fit: cover;
@@ -137,12 +160,6 @@ form input {
 
 .likediv i {
     padding-top: 17px;
-}
-
-.videocard {
-    width: 340px;
-    height: 340px;
-    object-fit: cover;
 }
 
 .description-video {
@@ -199,7 +216,7 @@ form input {
     color: #901C1C;
 }
 
-.lightbox-img {
+.lightbox-img, .lightbox-video {
     width: 70%;
     height:600px;
     margin-top: 5%;
@@ -209,4 +226,5 @@ form input {
 .prev , .next {
     margin-top: 28%;
 }
+
 
