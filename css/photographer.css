@@ -216,10 +216,14 @@ form input {
     color: #901C1C;
 }
 
+.lightbox-media {
+    text-align: center;
+}
+
 .lightbox-img, .lightbox-video {
-    width: 70%;
-    height:600px;
-    margin-top: 5%;
+    height:80vh;
+    width: 60vw;
+    text-align: center;
     object-fit: cover;
 }
 
