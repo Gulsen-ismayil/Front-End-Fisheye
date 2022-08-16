@@ -57,7 +57,7 @@ async function displayData(media,photographers) {
     const likeIcon = document.createElement('i')
     likeIcon.classList.add('fa-solid')
     likeIcon.classList.add('fa-heart')
-
+    
     const likeTotalDiv = document.createElement('div');
     likeTotalDiv.classList.add('liketotal');
     likeTotalDiv.appendChild(totalLikePhotographers);
@@ -132,6 +132,8 @@ function getMediaCardDOMImage(media,photographer) {
         mediaCard.addEventListener('click',openVideoModal);
         mediaCard.classList.add('videocard')
         const mediaVideo = document.createElement('video');
+        const videoSource = document.createElement('source');
+        // videoSource.setAttribute('src',mediaVideoUrl);
         mediaVideo.classList.add('imgVideoCard')
         mediaVideo.setAttribute('controls','');
         mediaVideo.setAttribute('data-id',id);
@@ -155,6 +157,7 @@ function getMediaCardDOMImage(media,photographer) {
         likeIcon.setAttribute('data-id',id)
         likeIcon.addEventListener('click',clickIcon)
 
+        mediaVideo.appendChild(videoSource);
         mediaCard.appendChild(mediaVideo);
         mediaCard.appendChild(descriptionVideo);
         descriptionVideo.appendChild(imgTitle);
@@ -232,24 +235,22 @@ iconPrev.addEventListener('click',prevImage);
 
 // lightbox FUNCTION
 let currentDom
+let dataId
 function openModal(e) {
-    const id = e.target.getAttribute('data-id');
-    console.log(medias);
-    let mediaDom = document.querySelector(`.imgVideoCard[data-id='${id}']`);
+    dataId = e.target.getAttribute('data-id');
+    let mediaDom = document.querySelector(`.imgVideoCard[data-id='${dataId}']`);
+    debugger
     currentDom = currentImage.setAttribute('src',mediaDom.src)
     currentDom = currentVideo.setAttribute('src',mediaDom.src);
-    const findElement = medias.find((element)=> {
-        if(element.id==id){
-            console.log(element); 
-            return element       
-        }
-    })
-    // const findIndex = medias.findIndex(findElement)
-    console.log(findElement);
+    console.log(currentImage);
+    index= medias.findIndex(element=>
+        element.id==dataId
+    )
 }
 
 
 function openImgModal(e) {
+    debugger
     // index = medias.findIndex(openModal);
     lightboxModal.style.display = 'block';
     currentImage.style.display = 'block';
@@ -259,8 +260,10 @@ function openImgModal(e) {
 
 
 function openVideoModal(e) {
-    currentImage.style.display='none'
+    debugger
     lightboxModal.style.display = 'block';
+    currentImage.style.display='none'
+    currentVideo.style.display = 'block'
     openModal(e)
 }
 
@@ -271,14 +274,38 @@ function closeLightbox() {
 }
 
 function nextImage() {
-
-    currentImage.style.display = 'none';
-    console.log('halooo next');
-  
+    if(index>=medias.length-1) {
+        index=0
+    }else {
+        index+=1
+    }
+    dataId = medias[index].id;
+    console.log(index,medias);
+    const dataImage = medias[index].image;
+    // const dataVideo = medias[index].video;
+    if(dataImage){
+        currentImage.style.display = 'block';
+        currentVideo.style.display = 'none';
+    }else {
+        currentImage.style.display='none'
+        currentVideo.style.display = 'block'
+    }
+    let mediaDom = document.querySelector(`.imgVideoCard[data-id='${dataId}']`);
+    currentImage.setAttribute('src',mediaDom.src)
+    currentVideo.setAttribute('src',mediaDom.src);
+    lightboxContent.appendChild(currentImage);
+    lightboxContent.appendChild(currentVideo);
+    lightboxContent.appendChild(iconNext);
 }
 
 function prevImage() {
-    console.log('halooo prev')
+    dataId = medias[index-=1].id;
+    let mediaDom = document.querySelector(`.imgVideoCard[data-id='${dataId}']`);
+    currentImage.setAttribute('src',mediaDom.src)
+    currentVideo.setAttribute('src',mediaDom.src);
+    lightboxContent.appendChild(currentImage);
+    lightboxContent.appendChild(currentVideo);
+    lightboxContent.appendChild(iconNext);
 }
 
 
@@ -295,6 +322,7 @@ function clickIcon(e) {
         number = parseInt(likenumbersDom.innerText)
         number = number + 1
         likenumbersDom.innerHTML = number;
+        
         // console.log(likenumbersDom);
         // console.log(number);
         sumLikes();
@@ -308,9 +336,9 @@ function clickIcon(e) {
  
     medias.forEach((media) => {
         sum = media.likes + sum;
+        console.log(media.likes+=1);
         const mediaBlock = mediaFactory(media,photographer);
         main.appendChild(mediaBlock);
-        // index = medias.indexOf(media)
     })
 }
 
