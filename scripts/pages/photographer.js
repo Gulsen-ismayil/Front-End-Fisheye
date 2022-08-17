@@ -275,15 +275,13 @@ function nextImage() {
         index+=1
     }
     dataId = medias[index].id;
-    console.log(index,medias);
     const dataImage = medias[index].image;
-    // const dataVideo = medias[index].video;
     if(dataImage){
         currentImage.style.display = 'block';
         currentVideo.style.display = 'none';
     }else {
-        currentImage.style.display='none'
         currentVideo.style.display = 'block'
+        currentImage.style.display='none'
     }
     let mediaDom = document.querySelector(`.imgVideoCard[data-id='${dataId}']`);
     currentImage.setAttribute('src',mediaDom.src)
@@ -294,7 +292,20 @@ function nextImage() {
 }
 
 function prevImage() {
-    dataId = medias[index-=1].id;
+    if(index>=medias.length-1) {
+        index=0
+    }else {
+        index+=1
+    }
+    dataId = medias[index].id;
+    const dataVideo = medias[index].video;
+    if(dataVideo) {
+        currentVideo.style.display = 'block'
+        currentImage.style.display='none'
+    }else {
+        currentImage.style.display = 'block';
+        currentVideo.style.display = 'none';
+    }
     let mediaDom = document.querySelector(`.imgVideoCard[data-id='${dataId}']`);
     currentImage.setAttribute('src',mediaDom.src)
     currentVideo.setAttribute('src',mediaDom.src);
