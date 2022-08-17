@@ -7,6 +7,7 @@ const mediaDiv = document.querySelector('.media');
 export let photographer 
 export let medias 
 let mediaDOM
+let totalLikePhotographers
 let number
 let sum
 let index
@@ -51,7 +52,7 @@ async function displayData(media,photographers) {
     const likePrice = document.querySelector('.like-price');
     const pricePhotographer = document.createElement('span');
     pricePhotographer.innerText = photographer.price + '€ / jour';
-    const totalLikePhotographers = document.createElement('span');
+    totalLikePhotographers = document.createElement('span');
     totalLikePhotographers.innerText = sum;
     
     const likeIcon = document.createElement('i')
@@ -103,7 +104,6 @@ function getMediaCardDOMImage(media,photographer) {
         likeImg.setAttribute('data-id',id)
         likeImg.classList.add('likenumbers')
         likeImg.innerHTML = likes;
-        // console.log(likeImg);
         const likeIcon = document.createElement('i')
         likeIcon.classList.add('fa-solid')
         likeIcon.classList.add('fa-heart')
@@ -239,10 +239,8 @@ let dataId
 function openModal(e) {
     dataId = e.target.getAttribute('data-id');
     let mediaDom = document.querySelector(`.imgVideoCard[data-id='${dataId}']`);
-    debugger
     currentDom = currentImage.setAttribute('src',mediaDom.src)
     currentDom = currentVideo.setAttribute('src',mediaDom.src);
-    console.log(currentImage);
     index= medias.findIndex(element=>
         element.id==dataId
     )
@@ -250,8 +248,6 @@ function openModal(e) {
 
 
 function openImgModal(e) {
-    debugger
-    // index = medias.findIndex(openModal);
     lightboxModal.style.display = 'block';
     currentImage.style.display = 'block';
     currentVideo.style.display = 'none';
@@ -260,7 +256,6 @@ function openImgModal(e) {
 
 
 function openVideoModal(e) {
-    debugger
     lightboxModal.style.display = 'block';
     currentImage.style.display='none'
     currentVideo.style.display = 'block'
@@ -322,21 +317,20 @@ function clickIcon(e) {
         number = parseInt(likenumbersDom.innerText)
         number = number + 1
         likenumbersDom.innerHTML = number;
+        // sumLikes();
         
-        // console.log(likenumbersDom);
-        // console.log(number);
-        sumLikes();
+        sum +=1;
+        console.log(sum);
+        totalLikePhotographers.innerHTML = sum;
     }
-    clicked = e.target.setAttribute('data-clicked',true)
-    
- }
+    clicked = e.target.setAttribute('data-clicked',true) 
+}
 
- function sumLikes() {
+function sumLikes() {
     sum = 0;
- 
+    
     medias.forEach((media) => {
         sum = media.likes + sum;
-        console.log(media.likes+=1);
         const mediaBlock = mediaFactory(media,photographer);
         main.appendChild(mediaBlock);
     })

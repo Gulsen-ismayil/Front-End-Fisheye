@@ -124,11 +124,6 @@ form input {
     font-size: 15px;
 }
 
-.sort select option {
-    background-color: #901C1C;
-}
-
-
 /* media */
 .media {
     display: flex;
