@@ -216,6 +216,12 @@ form input {
     text-align: center;
 }
 
+.lightboxName {
+    font-size: 14px;
+    float: left;
+    margin-top: 8px;
+}
+
 .lightbox-img, .lightbox-video {
     height:80vh;
     width: 60vw;

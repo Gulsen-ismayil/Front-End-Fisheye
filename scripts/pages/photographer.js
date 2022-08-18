@@ -216,7 +216,8 @@ currentImage.classList.add('lightbox-img');
 const currentVideo = document.createElement('video');
 currentVideo.setAttribute('controls','')
 currentVideo.setAttribute('src','');
-currentVideo.classList.add('lightbox-video')
+currentVideo.classList.add('lightbox-video');
+const lightboxName = document.querySelector('.lightboxName');
 lightboxMedia.appendChild(currentImage);
 lightboxMedia.appendChild(currentVideo)
 lightboxContent.appendChild(lightboxMedia);
@@ -244,6 +245,8 @@ function openModal(e) {
     index= medias.findIndex(element=>
         element.id==dataId
     )
+    console.log(index);
+    lightboxName.innerHTML = medias[index].title;
 }
 
 
@@ -283,19 +286,22 @@ function nextImage() {
         currentVideo.style.display = 'block'
         currentImage.style.display='none'
     }
+    lightboxName.innerHTML = medias[index].title;
     let mediaDom = document.querySelector(`.imgVideoCard[data-id='${dataId}']`);
     currentImage.setAttribute('src',mediaDom.src)
     currentVideo.setAttribute('src',mediaDom.src);
-    lightboxContent.appendChild(currentImage);
-    lightboxContent.appendChild(currentVideo);
+    lightboxMedia.appendChild(currentImage);
+    lightboxMedia.appendChild(currentVideo);
+    lightboxMedia.appendChild(lightboxName);
+    lightboxContent.appendChild(lightboxMedia);
     lightboxContent.appendChild(iconNext);
 }
 
 function prevImage() {
-    if(index>=medias.length-1) {
-        index=0
+    if(index<=0) {
+        index=medias.length-1
     }else {
-        index+=1
+        index-=1
     }
     dataId = medias[index].id;
     const dataVideo = medias[index].video;
@@ -306,11 +312,14 @@ function prevImage() {
         currentImage.style.display = 'block';
         currentVideo.style.display = 'none';
     }
+    lightboxName.innerHTML = medias[index].title;
     let mediaDom = document.querySelector(`.imgVideoCard[data-id='${dataId}']`);
     currentImage.setAttribute('src',mediaDom.src)
     currentVideo.setAttribute('src',mediaDom.src);
-    lightboxContent.appendChild(currentImage);
-    lightboxContent.appendChild(currentVideo);
+    lightboxMedia.appendChild(currentImage);
+    lightboxMedia.appendChild(currentVideo);
+    lightboxMedia.appendChild(lightboxName);
+    lightboxContent.appendChild(lightboxMedia);
     lightboxContent.appendChild(iconNext);
 }
 
