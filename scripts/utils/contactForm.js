@@ -11,6 +11,11 @@ const formData = document.querySelectorAll('.formdata');
 
 
 // event
+document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){
+        closeModal()
+    }
+})
 contactButton.addEventListener('click',launchContactModal); 
 closeModalButton.forEach((close=> {
 close.addEventListener('click',closeModal)
@@ -24,7 +29,6 @@ function launchContactModal(e) {
     contactModal.style.display="block";
     overLay.style.display="block";
     titleContactezmoi();
-    closeModalButton.focus();
 }
 
 function closeModal() {

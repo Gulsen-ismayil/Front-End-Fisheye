@@ -15,13 +15,13 @@
 
     <!-- lightbox -->
     <dialog class="lightbox-modal" aria-label="image closeup view" open>
-      <i class="fa-solid fa-xmark closeligthbox" aria-label="Close dialog"></i>
+      <i role="button" class="fa-solid fa-xmark closeligthbox" aria-label="Close dialog"></i>
         <div class="lightbox-modal-content">
-          <i aria-hidden="true" class="fa-solid fa-angle-left prev" ></i>
+          <i role="button" title="Previous image" class="fa-solid fa-angle-left prev" ></i>
           <div class="lightbox-media">
-            <span class="lightboxName"></span>
+            <span role="article" class="lightboxName"></span>
           </div>
-          <i aria-hidden="true" class="fa-solid fa-angle-right next"></i>
+          <i role="button" title="Next image"  class="fa-solid fa-angle-right next"></i>
         </div>
     </dialog>
     
@@ -30,15 +30,15 @@
         <img src="assets/images/logo.png" alt="Fisheye Home Page" class="logo" />
       </a>
     </header>
-    <main id="main" aria-hidden="false" >
+    <main id="main" >
         <div class="photograph-header">
           <article>
             <div class="description">
-              <h1></h1>
+              <h1 role="text"></h1>
               <div class="localisation"></div>
-              <p class="paragraph"></p>
+              <p role="text" class="paragraph"></p>
             </div>
-            <button class="contact_button contactbutton" >Contactez-moi</button>
+            <button role="button" title="Contact Me" class="contact_button contactbutton" >Contactez-moi</button>
             <img class="photograph-img" alt="Mimi Keel" >
           </article>
         </div>
@@ -46,9 +46,8 @@
         <!-- trier -->
 
         <div class="sort" >
-          <label for="sorting">Trier par</label>
-          <select name="sort" id="sorting" >
-              <option value=""></option>
+          <label role="input label" title="nom du menue de selection" for="sorting">Trier par</label>
+          <select role="button" aria-labelledby="Order by" name="sort" id="sorting" >
               <option value="popularite" class="sortPopuler">Popularité</option>
               <option value="date" class="sortDate">Date</option>
               <option value="titre" class="sortTitle">Titre</option>
@@ -62,7 +61,7 @@
 
         <!-- modal -->
 
-        <div id="contact_modal" aria-hidden="true" role="dialog" aria-describedby="modalTitle" >
+        <div id="contact_modal" role="dialog" aria-modal="true" aria-describedby="modalTitle" >
           <div class="modal">
             <header>
               <h1 id="modalTitle" class="modaltitle">Contactez-moi</h1>

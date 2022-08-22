@@ -28,6 +28,7 @@ p {
 .logo {
     height: 40px;
     margin-left: 100px;
+    cursor: pointer;
 }
 
 header h1 {

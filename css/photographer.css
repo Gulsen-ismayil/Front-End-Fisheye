@@ -129,6 +129,7 @@ form input {
     border-radius: 5px;
     color: white;
     font-size: 15px;
+    cursor: pointer;
 }
 
 /* media */
@@ -147,6 +148,7 @@ form input {
     width: 340px;
     height: 340px;
     object-fit: cover;
+    cursor: pointer;
 }
 
 .description-img {
@@ -168,6 +170,7 @@ form input {
 
 .likediv i {
     padding-top: 4px;
+    cursor: pointer;
 }
 
 .description-video {
@@ -217,6 +220,7 @@ form input {
     color: #901C1C;
     font-size: 60px;
     float: right;
+    cursor: pointer;
 }
 
 .lightbox-modal-content {
@@ -244,9 +248,10 @@ form input {
 }
 
 .prev , .next {
-    display: flex;
-    align-items: center;
-    margin-top: 0;
+    /* display: flex;
+    align-items: center; */
+    align-self: center;
+    cursor: pointer;
 }
 
 

@@ -1,15 +1,3 @@
-// DOM
-// const headerPhotographersFactory = document.querySelector('header');
-// const lienLogoFisheye = document.createElement('a');
-// lienLogoFisheye.setAttribute('href','index.html');
-
-// const headerImage = document.querySelector('.logo');
-// headerImage.setAttribute('alt','Fisheye Home Page')
-
-// headerPhotographersFactory.appendChild(lienLogoFisheye);
-// lienLogoFisheye.appendChild(headerImage);
-
-
 // Function Photographers
 export function photographerFactory(data) {
     const { name, portrait,city,country,tagline,price,id } = data;

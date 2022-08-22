@@ -91,6 +91,7 @@ function getMediaCardDOMImage(media,photographer) {
         const img = document.createElement('img');
         img.classList.add('imgVideoCard')
         img.setAttribute('src',mediaPicture);
+        img.setAttribute('alt','Lilac breasted roller,closeup view')
         img.setAttribute('data-id',id);
         img.addEventListener('click',openImgModal);
         const descriptionImg = document.createElement('div');
@@ -100,18 +101,20 @@ function getMediaCardDOMImage(media,photographer) {
 
         const imgTitle = document.createElement('p');
         imgTitle.innerHTML = title;
+        imgTitle.setAttribute('role','text')
         const likeImg = document.createElement('p');
-        likeImg.setAttribute('data-id',id)
-        likeImg.classList.add('likenumbers')
+        likeImg.setAttribute('aria-label','nb de likes');
+        likeImg.setAttribute('data-id',id);
+        likeImg.classList.add('likenumbers');
         likeImg.innerHTML = likes;
-        const likeIcon = document.createElement('i')
-        likeIcon.setAttribute('aria-label','likes')
-        likeIcon.classList.add('fa-solid')
-        likeIcon.classList.add('fa-heart')
-        likeIcon.classList.add('likeicon')
-        likeIcon.setAttribute('data-id',id)
-        likeIcon.addEventListener('click',clickIcon)
-        likeIcon.setAttribute('data-clicked','')
+        const likeIcon = document.createElement('i');
+        likeIcon.setAttribute('aria-label','likes');
+        likeIcon.classList.add('fa-solid');
+        likeIcon.classList.add('fa-heart');
+        likeIcon.classList.add('likeicon');
+        likeIcon.setAttribute('data-id',id);
+        likeIcon.addEventListener('click',clickIcon);
+        likeIcon.setAttribute('data-clicked','');
        
 
         mediaCard.appendChild(img);
@@ -141,6 +144,7 @@ function getMediaCardDOMImage(media,photographer) {
         videoTrack.setAttribute('label','French');
         mediaVideo.classList.add('imgVideoCard')
         mediaVideo.setAttribute('controls','');
+        mediaVideo.setAttribute('alt','Lilac breasted roller,closeup view')
         mediaVideo.setAttribute('data-id',id);
         mediaVideo.setAttribute('src',mediaVideoUrl);
 
@@ -236,6 +240,15 @@ lightboxContent.appendChild(iconNext)
 
 
 // lightbox EVENT
+document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowLeft'){
+        prevImage()
+    }else if(e.key==='ArrowRight'){
+        nextImage()
+    }else if(e.key==='Escape'){
+        closeLightbox()
+    }
+})
 lightboxClose.forEach((close => {
     close.addEventListener('click',closeLightbox)
 }));
@@ -372,10 +385,9 @@ function sumLikes() {
 //  trier 
 
 const sortSelect = document.getElementById('sorting')
-
 sortSelect.addEventListener('change',function(e) {
-    if(e.target.value==='titre') {
-      titleSorting();
+    if(e.target.value==='title') {
+        titleSorting();
     } else if(e.target.value==='date') {
         dateSorting();
     }else {
@@ -398,7 +410,6 @@ function populerSorting() {
     medias.sort((a,z) => {
         return parseInt(a.likes) - parseInt(z.likes)
     })
-    console.log(medias);
     medias.forEach((element) => {
         mediaFactory(element,photographer)
     })
