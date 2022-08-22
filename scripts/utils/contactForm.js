@@ -22,8 +22,9 @@ function launchContactModal(e) {
    
     e.preventDefault();
     contactModal.style.display="block";
-    overLay.style.display="block"
-    titleContactezmoi()
+    overLay.style.display="block";
+    titleContactezmoi();
+    closeModalButton.focus();
 }
 
 function closeModal() {

@@ -134,6 +134,11 @@ function getMediaCardDOMImage(media,photographer) {
         mediaCard.classList.add('videocard')
         const mediaVideo = document.createElement('video');
         const videoSource = document.createElement('source');
+        const videoTrack = document.createElement('track');
+        videoTrack.setAttribute('kind','subtitles');
+        videoTrack.setAttribute('src','toto.fr.vtt');
+        videoTrack.setAttribute('srclang','fr');
+        videoTrack.setAttribute('label','French');
         mediaVideo.classList.add('imgVideoCard')
         mediaVideo.setAttribute('controls','');
         mediaVideo.setAttribute('data-id',id);
@@ -158,6 +163,7 @@ function getMediaCardDOMImage(media,photographer) {
         likeIcon.setAttribute('data-id',id)
         likeIcon.addEventListener('click',clickIcon)
 
+        mediaVideo.appendChild(videoTrack);
         mediaVideo.appendChild(videoSource);
         mediaCard.appendChild(mediaVideo);
         mediaCard.appendChild(descriptionVideo);
