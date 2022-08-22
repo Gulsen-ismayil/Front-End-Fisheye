@@ -5,7 +5,7 @@ const sendButton = document.querySelector('.sendbutton');
 const contactModal = document.getElementById("contact_modal");
 const overLay = document.querySelector('.overlay');
 const closeModalButton = document.querySelectorAll('.closemodal');
-const h2contactezmoi = document.querySelector('.modaltitle');
+const h1contactezmoi = document.querySelector('.modaltitle');
 const formulaire = document.querySelector('form');
 const formData = document.querySelectorAll('.formdata');
 
@@ -33,7 +33,7 @@ function closeModal() {
 
 function titleContactezmoi() {
     
-    h2contactezmoi.innerText = `Contactez-moi ${photographer.name}`;
+    h1contactezmoi.innerText = `Contactez-moi ${photographer.name}`;
 };
 
 

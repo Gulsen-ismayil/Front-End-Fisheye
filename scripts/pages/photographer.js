@@ -105,6 +105,7 @@ function getMediaCardDOMImage(media,photographer) {
         likeImg.classList.add('likenumbers')
         likeImg.innerHTML = likes;
         const likeIcon = document.createElement('i')
+        likeIcon.setAttribute('aria-label','likes')
         likeIcon.classList.add('fa-solid')
         likeIcon.classList.add('fa-heart')
         likeIcon.classList.add('likeicon')
@@ -133,7 +134,6 @@ function getMediaCardDOMImage(media,photographer) {
         mediaCard.classList.add('videocard')
         const mediaVideo = document.createElement('video');
         const videoSource = document.createElement('source');
-        // videoSource.setAttribute('src',mediaVideoUrl);
         mediaVideo.classList.add('imgVideoCard')
         mediaVideo.setAttribute('controls','');
         mediaVideo.setAttribute('data-id',id);
@@ -152,6 +152,7 @@ function getMediaCardDOMImage(media,photographer) {
         likeImg.classList.add('likenumbers')
         likeImg.setAttribute('data-id',id)
         const likeIcon = document.createElement('i')
+        likeIcon.setAttribute('aria-label','likes')
         likeIcon.classList.add('fa-solid')
         likeIcon.classList.add('fa-heart')
         likeIcon.setAttribute('data-id',id)
@@ -184,8 +185,8 @@ export function photographerFactory(data) {
         img.setAttribute("src", picture);
         img.setAttribute('alt', name);
 
-        const h2 = document.querySelector('h2');
-        h2.textContent = name;
+        const h1 = document.querySelector('h1');
+        h1.textContent = name;
 
         const localisationDiv = document.querySelector('.localisation');
         localisationDiv.innerHTML = city + ', ' + country ;
@@ -204,22 +205,25 @@ export function photographerFactory(data) {
 
 // lightbox 
 // lightbox  DOM
+const overLay = document.querySelector('.overlay');
 const lightboxModal = document.querySelector('.lightbox-modal');
-const lightboxClose = document.querySelectorAll('.closemodal');
+const lightboxClose = document.querySelectorAll('.closeligthbox');
 const lightboxContent = document.querySelector('.lightbox-modal-content');
 const lightboxMedia = document.querySelector('.lightbox-media');
 const iconNext = document.querySelector('.next');
 const iconPrev = document.querySelector('.prev');
 const currentImage = document.createElement('img');
+currentImage.setAttribute('alt','Lilac breasted roller')
 currentImage.setAttribute('src','')
 currentImage.classList.add('lightbox-img');
 const currentVideo = document.createElement('video');
-currentVideo.setAttribute('controls','')
+currentVideo.setAttribute('controls','');
 currentVideo.setAttribute('src','');
 currentVideo.classList.add('lightbox-video');
 const lightboxName = document.querySelector('.lightboxName');
 lightboxMedia.appendChild(currentImage);
-lightboxMedia.appendChild(currentVideo)
+lightboxMedia.appendChild(currentVideo);
+lightboxMedia.appendChild(lightboxName);
 lightboxContent.appendChild(lightboxMedia);
 lightboxContent.appendChild(iconNext)
 
@@ -245,12 +249,12 @@ function openModal(e) {
     index= medias.findIndex(element=>
         element.id==dataId
     )
-    console.log(index);
     lightboxName.innerHTML = medias[index].title;
 }
 
 
 function openImgModal(e) {
+    overLay.style.display = 'block';
     lightboxModal.style.display = 'block';
     currentImage.style.display = 'block';
     currentVideo.style.display = 'none';
@@ -259,6 +263,7 @@ function openImgModal(e) {
 
 
 function openVideoModal(e) {
+    overLay.style.display = 'block';
     lightboxModal.style.display = 'block';
     currentImage.style.display='none'
     currentVideo.style.display = 'block'
@@ -269,6 +274,7 @@ function openVideoModal(e) {
 
 function closeLightbox() {
     lightboxModal.style.display = 'none';
+    overLay.style.display = 'none';
 }
 
 function nextImage() {

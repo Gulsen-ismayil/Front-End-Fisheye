@@ -14,14 +14,14 @@
     <div class="overlay"></div>
 
     <!-- lightbox -->
-    <dialog class="lightbox-modal" open>
-      <i class="fa-solid fa-xmark closemodal"></i>
+    <dialog class="lightbox-modal" aria-label="image closeup view" open>
+      <i class="fa-solid fa-xmark closeligthbox" aria-label="Close dialog"></i>
         <div class="lightbox-modal-content">
-          <i class="fa-solid fa-angle-left prev"></i>
+          <i aria-hidden="true" class="fa-solid fa-angle-left prev" ></i>
           <div class="lightbox-media">
             <span class="lightboxName"></span>
           </div>
-          <i class="fa-solid fa-angle-right next"></i>
+          <i aria-hidden="true" class="fa-solid fa-angle-right next"></i>
         </div>
     </dialog>
     
@@ -30,16 +30,16 @@
         <img src="assets/images/logo.png" alt="Fisheye Home Page" class="logo" />
       </a>
     </header>
-    <main id="main">
+    <main id="main" aria-hidden="false" >
         <div class="photograph-header">
           <article>
             <div class="description">
-              <h2></h2>
+              <h1></h1>
               <div class="localisation"></div>
               <p class="paragraph"></p>
             </div>
             <button class="contact_button contactbutton" >Contactez-moi</button>
-            <img class="photograph-img" >
+            <img class="photograph-img" alt="Mimi Keel" >
           </article>
         </div>
 
@@ -62,11 +62,11 @@
 
         <!-- modal -->
 
-        <div id="contact_modal">
+        <div id="contact_modal" aria-hidden="true" role="dialog" aria-describedby="modalTitle" >
           <div class="modal">
             <header>
-              <h2 class="modaltitle">Contactez-moi</h2>
-              <img class="closemodal" src="assets/icons/close.svg"  />
+              <h1 id="modalTitle" class="modaltitle">Contactez-moi</h1>
+              <img class="closemodal" src="assets/icons/close.svg"  alt="Close Contact form"/>
             </header>
             <form>
               <div class="formdata">
@@ -75,7 +75,7 @@
                 class="text-control" 
                 type="text"
                 id="first"
-                name="first"/>
+                name="First name"/>
               </div>
               <div class="formdata">
                 <label for="last">Nom</label>
@@ -83,7 +83,7 @@
                 class="text-control" 
                 type="text"
                 id="last"
-                name="last"/>
+                name="Last name"/>
               </div>
               <div class="formdata">
                 <label for="email">Email</label>
@@ -91,15 +91,15 @@
                 class="text-control" 
                 type="email"
                 id="email"
-                name="email"/>
+                name="Email"/>
               </div>
               <div class="formdata">
                 <label for="message">Votre message</label>
                 <textarea
                 id="message"
-                class="textarea text-control"></textarea>
+                class="textarea text-control" name="Your message"></textarea>
               </div>
-              <button class="contact_button sendbutton">Envoyer</button>
+              <button class="contact_button sendbutton" name="Send">Envoyer</button>
             </form>
           </div>
         </div>

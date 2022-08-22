@@ -15,13 +15,24 @@ header {
 }
 
 h1 {
-    color: #901C1C;
-    margin-right: 100px;
+    color:#D3573C;
+    font-size: 40px;
+    /* margin-right: 95px; */
+    margin-bottom: 0;
+}
+
+p {
+    margin: 0 ;
 }
 
 .logo {
-    height: 50px;
+    height: 40px;
     margin-left: 100px;
+}
+
+header h1 {
+    font-size: 35px;
+    color:#901c1c;
 }
 
 .photographer_section {
@@ -77,17 +88,15 @@ h1 {
 
 
 .localisation {
-    color: #D3573C;
+    color: #901c1c;
+    font-size: 18px;
 }
 
 .paragraph {
     color: black;
+    margin: 7px 0;
 }
 
 .price {
-    color: gray;
-    
+    color: gray;   
 }
-
-
-

@@ -19,12 +19,12 @@
 }
 
 .contact_button {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     color: white;
     padding: 11px;
-    width: 170px;
-    height: 70px;
+    width: 150px;
+    height: 50px;
     border: none;
     background-color: #901C1C;
     border-radius: 5px;
@@ -36,7 +36,7 @@
 .modal {
     border-radius: 5px;
     background-color: #DB8876;
-    width: 35%;
+    width: 47%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -52,14 +52,20 @@
     width: 100%;
 }
 
+.closemodal {
+    width: 40px;
+    margin-top: -50px;
+}
+
 .modal header img {
     cursor: pointer;
 }
 
-.modal header h2 {
-    font-size: 35px;
+.modal header h1 {
+    font-size: 50px;
     font-weight: normal;
-    text-align: center;
+    color: black;
+    margin-top: 0px;
 }
 
 form {
@@ -72,6 +78,7 @@ form {
 form label {
     color: #312E2E;
     font-size: 25px;
+    margin-top: 30px;
 }
 
 form div {
@@ -145,17 +152,22 @@ form input {
 .description-img {
     display: flex;
     justify-content: space-between;
-    color: #DB8876;
+    color:#901C1C;
+    font-size: 20px;
+}
+
+.description-img p {
+    margin: 0;
 }
 
 .likediv {
     display: flex;
     justify-content: space-between;
-    width: 13%;
+    width: 15%;
 }
 
 .likediv i {
-    padding-top: 17px;
+    padding-top: 4px;
 }
 
 .description-video {
@@ -192,14 +204,16 @@ form input {
 
 .lightbox-modal {
     width: 80%;
-    height: 700px;
+    height: 90vh;
     margin: auto;
     display: none;
-    margin-top: 50px;
+    margin-top: 20px;
     border: none;
+    position: fixed;
+    z-index: 2;
 }
 
-.closemodal {
+.closeligthbox {
     color: #901C1C;
     font-size: 60px;
     float: right;
@@ -217,20 +231,22 @@ form input {
 }
 
 .lightboxName {
-    font-size: 14px;
+    font-size: 20px;
     float: left;
     margin-top: 8px;
 }
 
 .lightbox-img, .lightbox-video {
-    height:80vh;
+    height:86vh;
     width: 60vw;
     text-align: center;
     object-fit: cover;
 }
 
 .prev , .next {
-    margin-top: 28%;
+    display: flex;
+    align-items: center;
+    margin-top: 0;
 }
 
 
