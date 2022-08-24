@@ -91,7 +91,9 @@ function getMediaCardDOMImage(media,photographer) {
         const img = document.createElement('img');
         img.classList.add('imgVideoCard')
         img.setAttribute('src',mediaPicture);
-        img.setAttribute('alt','Lilac breasted roller,closeup view')
+        img.setAttribute('tabindex','0');
+        img.setAttribute('role','link');
+        img.setAttribute('alt','Lilac breasted roller,closeup view');
         img.setAttribute('data-id',id);
         img.addEventListener('click',openImgModal);
         const descriptionImg = document.createElement('div');
@@ -115,7 +117,6 @@ function getMediaCardDOMImage(media,photographer) {
         likeIcon.setAttribute('data-id',id);
         likeIcon.addEventListener('click',clickIcon);
         likeIcon.setAttribute('data-clicked','');
-       
 
         mediaCard.appendChild(img);
         likeDiv.appendChild(likeImg);
@@ -241,12 +242,16 @@ lightboxContent.appendChild(iconNext)
 
 // lightbox EVENT
 document.addEventListener('keydown',function(e){
+    console.log(e.key);
     if(e.key==='ArrowLeft'){
         prevImage()
     }else if(e.key==='ArrowRight'){
         nextImage()
     }else if(e.key==='Escape'){
         closeLightbox()
+    }else if(e.key==='Enter'){
+        openImgModal(e);
+        openVideoModal(e);
     }
 })
 lightboxClose.forEach((close => {
