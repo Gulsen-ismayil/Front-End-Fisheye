@@ -196,7 +196,7 @@ export function photographerFactory(data) {
         img.setAttribute("src", picture);
         img.setAttribute('alt', name);
 
-        const h1 = document.querySelector('h1');
+        const h1 = document.createElement('h1');
         h1.textContent = name;
 
         const localisationDiv = document.querySelector('.localisation');
