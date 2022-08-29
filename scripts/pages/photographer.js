@@ -17,8 +17,8 @@ let index
 async function init() {
     const { media,photographers } = await getPhotographers();
     displayData(media,photographers);
-};
-init();
+}
+await init();
 
 
 // filtrer et displaydata
@@ -65,7 +65,7 @@ async function displayData(media,photographers) {
     likeTotalDiv.appendChild(likeIcon);
     likePrice.appendChild(likeTotalDiv);
     likePrice.appendChild(pricePhotographer);
-};
+}
 
 
 // Media factory 
@@ -268,7 +268,7 @@ let dataId
 function openModal(e) {
     dataId = e.target.getAttribute('data-id');
     let mediaDom = document.querySelector(`.imgVideoCard[data-id='${dataId}']`);
-    currentDom = currentImage.setAttribute('src',mediaDom.src)
+    currentDom = currentImage.setAttribute('src',mediaDom.src);
     currentDom = currentVideo.setAttribute('src',mediaDom.src);
     index= medias.findIndex(element=>
         element.id==dataId
@@ -282,6 +282,7 @@ function openImgModal(e) {
     lightboxModal.style.display = 'block';
     currentImage.style.display = 'block';
     currentVideo.style.display = 'none';
+    lightboxModal.setAttribute('aria-hidden','false');
     openModal(e)
 }
 
@@ -290,7 +291,8 @@ function openVideoModal(e) {
     overLay.style.display = 'block';
     lightboxModal.style.display = 'block';
     currentImage.style.display='none'
-    currentVideo.style.display = 'block'
+    currentVideo.style.display = 'block';
+    lightboxModal.setAttribute('aria-hidden','false');
     openModal(e)
 }
 
@@ -299,6 +301,7 @@ function openVideoModal(e) {
 function closeLightbox() {
     lightboxModal.style.display = 'none';
     overLay.style.display = 'none';
+    lightboxModal.setAttribute('aria-hidden','true');
 }
 
 function nextImage() {
@@ -367,7 +370,6 @@ function clickIcon(e) {
         number = parseInt(likenumbersDom.innerText)
         number = number + 1
         likenumbersDom.innerHTML = number;
-        // sumLikes();
         
         sum +=1;
         console.log(sum);
@@ -390,13 +392,14 @@ function sumLikes() {
 //  trier 
 
 const sortSelect = document.getElementById('sorting')
+populerSorting();
 sortSelect.addEventListener('change',function(e) {
-    if(e.target.value==='title') {
-        titleSorting();
+    if(e.target.value==='popularite') {
+        populerSorting();
     } else if(e.target.value==='date') {
         dateSorting();
     }else {
-        populerSorting();
+        titleSorting();
     }
 });
 
@@ -422,7 +425,6 @@ function populerSorting() {
 
 function titleSorting() {
     medias.sort((a,z)=> {
-        console.log(medias);
         return a.title.localeCompare(z.title);
     })
     mediaDiv.innerHTML = '';
