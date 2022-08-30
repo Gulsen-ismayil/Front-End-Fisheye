@@ -1,4 +1,4 @@
-import { photographer,medias } from "../pages/photographer.js";
+import { photographer,lightboxModal } from "../pages/photographer.js";
 // DOM
 const contactButton = document.querySelector('.contactbutton');
 const sendButton = document.querySelector('.sendbutton');
@@ -12,8 +12,14 @@ const formData = document.querySelectorAll('.formdata');
 
 // event
 document.addEventListener('keydown',function(e){
+    console.log(e);
     if(e.key==='Escape'){
         closeModal()
+    }else if(e.key==='Enter'){
+        if(e.target.nodeName==='BUTTON'){
+            launchContactModal()
+            lightboxModal.style.display = 'none'
+        }
     }
 })
 contactButton.addEventListener('click',launchContactModal); 
@@ -23,23 +29,23 @@ close.addEventListener('click',closeModal)
 sendButton.addEventListener('click',launchSend);
 
 // function modal 
-function launchContactModal(e) {
-   
-    e.preventDefault();
+function launchContactModal() {
     contactModal.style.display="block";
     overLay.style.display="block";
+    contactModal.setAttribute('aria-hidden','false');
     titleContactezmoi();
 }
 
 function closeModal() {
     contactModal.style.display = "none";
     overLay.style.display="none";
+    contactModal.setAttribute('aria-hidden','true');
 }
 
 function titleContactezmoi() {
     
     h1contactezmoi.innerText = `Contactez-moi ${photographer.name}`;
-};
+}
 
 
 
@@ -109,7 +115,7 @@ function validateName(nom) {
 }
 
 function validateEmail(mail) {
-    const regexmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ 
+    const regexmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ 
     if(mail.match(regexmail)) {
         return true;
     }else {

@@ -217,7 +217,7 @@ export function photographerFactory(data) {
 // lightbox 
 // lightbox  DOM
 const overLay = document.querySelector('.overlay');
-const lightboxModal = document.querySelector('.lightbox-modal');
+export const lightboxModal = document.querySelector('.lightbox-modal');
 const lightboxClose = document.querySelectorAll('.closeligthbox');
 const lightboxContent = document.querySelector('.lightbox-modal-content');
 const lightboxMedia = document.querySelector('.lightbox-media');
@@ -242,7 +242,6 @@ lightboxContent.appendChild(iconNext)
 
 // lightbox EVENT
 document.addEventListener('keydown',function(e){
-    console.log(e.key);
     if(e.key==='ArrowLeft'){
         prevImage()
     }else if(e.key==='ArrowRight'){
@@ -250,8 +249,12 @@ document.addEventListener('keydown',function(e){
     }else if(e.key==='Escape'){
         closeLightbox()
     }else if(e.key==='Enter'){
-        openImgModal(e);
-        openVideoModal(e);
+        console.log(e);
+        if(e.target.nodeName==='IMG'){
+            openImgModal(e)
+        }else{
+            openVideoModal(e)
+        }
     }
 })
 lightboxClose.forEach((close => {
@@ -263,13 +266,12 @@ iconPrev.addEventListener('click',prevImage);
 
 
 // lightbox FUNCTION
-let currentDom
 let dataId
 function openModal(e) {
     dataId = e.target.getAttribute('data-id');
     let mediaDom = document.querySelector(`.imgVideoCard[data-id='${dataId}']`);
-    currentDom = currentImage.setAttribute('src',mediaDom.src);
-    currentDom = currentVideo.setAttribute('src',mediaDom.src);
+    currentImage.setAttribute('src',mediaDom.src);
+    currentVideo.setAttribute('src',mediaDom.src);
     index= medias.findIndex(element=>
         element.id==dataId
     )
