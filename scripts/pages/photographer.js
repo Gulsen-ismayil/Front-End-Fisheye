@@ -71,115 +71,115 @@ async function displayData(media,photographers) {
 // Media factory 
 
 function mediaFactory(media,photographer) {
-        if(media.image){
-            mediaDOM = getMediaCardDOMImage(media,photographer);
-        }else if(media.video) {
-            mediaDOM = getMediaCardDOMVideo(media,photographer);
-        }
+    if(media.image){
+        mediaDOM = getMediaCardDOMImage(media,photographer);
+    }else if(media.video) {
+        mediaDOM = getMediaCardDOMVideo(media,photographer);
+    }
     return mediaDOM ;
 }
 
 function getMediaCardDOMImage(media,photographer) {
 
-        const {title,image,likes,id} = media;
-        const mediaPicture = `assets/photographers/${photographer.name}/${image}`;
-       
-        
-        const mediaCard = document.createElement('div');
-        mediaCard.classList.add('mediaimage')
+    const {title,image,likes,id} = media;
+    const mediaPicture = `assets/photographers/${photographer.name}/${image}`;
+    
+    
+    const mediaCard = document.createElement('div');
+    mediaCard.classList.add('mediaimage')
 
-        const img = document.createElement('img');
-        img.classList.add('imgVideoCard')
-        img.setAttribute('src',mediaPicture);
-        img.setAttribute('tabindex','0');
-        img.setAttribute('role','link');
-        img.setAttribute('alt','Lilac breasted roller,closeup view');
-        img.setAttribute('data-id',id);
-        img.addEventListener('click',openImgModal);
-        const descriptionImg = document.createElement('div');
-        descriptionImg.classList.add('description-img');
-        const likeDiv = document.createElement('div');
-        likeDiv.classList.add('likediv')
+    const img = document.createElement('img');
+    img.classList.add('imgVideoCard')
+    img.setAttribute('src',mediaPicture);
+    img.setAttribute('tabindex','0');
+    img.setAttribute('role','link');
+    img.setAttribute('alt','Lilac breasted roller,closeup view');
+    img.setAttribute('data-id',id);
+    img.addEventListener('click',openImgModal);
+    const descriptionImg = document.createElement('div');
+    descriptionImg.classList.add('description-img');
+    const likeDiv = document.createElement('div');
+    likeDiv.classList.add('likediv')
 
-        const imgTitle = document.createElement('p');
-        imgTitle.innerHTML = title;
-        imgTitle.setAttribute('role','text')
-        const likeImg = document.createElement('p');
-        likeImg.setAttribute('aria-label','nb de likes');
-        likeImg.setAttribute('data-id',id);
-        likeImg.classList.add('likenumbers');
-        likeImg.innerHTML = likes;
-        const likeIcon = document.createElement('i');
-        likeIcon.setAttribute('aria-label','likes');
-        likeIcon.classList.add('fa-solid');
-        likeIcon.classList.add('fa-heart');
-        likeIcon.classList.add('likeicon');
-        likeIcon.setAttribute('data-id',id);
-        likeIcon.addEventListener('click',clickIcon);
-        likeIcon.setAttribute('data-clicked','');
+    const imgTitle = document.createElement('p');
+    imgTitle.innerHTML = title;
+    imgTitle.setAttribute('role','text')
+    const likeImg = document.createElement('p');
+    likeImg.setAttribute('aria-label','nb de likes');
+    likeImg.setAttribute('data-id',id);
+    likeImg.classList.add('likenumbers');
+    likeImg.innerHTML = likes;
+    const likeIcon = document.createElement('i');
+    likeIcon.setAttribute('aria-label','likes');
+    likeIcon.classList.add('fa-solid');
+    likeIcon.classList.add('fa-heart');
+    likeIcon.classList.add('likeicon');
+    likeIcon.setAttribute('data-id',id);
+    likeIcon.addEventListener('click',clickIcon);
+    likeIcon.setAttribute('data-clicked','');
 
-        mediaCard.appendChild(img);
-        likeDiv.appendChild(likeImg);
-        likeDiv.appendChild(likeIcon);
-        descriptionImg.appendChild(imgTitle);
-        descriptionImg.appendChild(likeDiv);
-        mediaCard.appendChild(descriptionImg);
-        mediaDiv.appendChild(mediaCard);
+    mediaCard.appendChild(img);
+    likeDiv.appendChild(likeImg);
+    likeDiv.appendChild(likeIcon);
+    descriptionImg.appendChild(imgTitle);
+    descriptionImg.appendChild(likeDiv);
+    mediaCard.appendChild(descriptionImg);
+    mediaDiv.appendChild(mediaCard);
 
-        return mediaDiv   
-    } 
+    return mediaDiv   
+} 
   
-    function getMediaCardDOMVideo(media,photographer) {
-        const {title,video,likes,id} = media;
-        const mediaVideoUrl = `assets/photographers/${photographer.name}/${video}`;
+function getMediaCardDOMVideo(media,photographer) {
+    const {title,video,likes,id} = media;
+    const mediaVideoUrl = `assets/photographers/${photographer.name}/${video}`;
 
-        const mediaCard =document.createElement('div');
-        mediaCard.addEventListener('click',openVideoModal);
-        mediaCard.classList.add('videocard')
-        const mediaVideo = document.createElement('video');
-        const videoSource = document.createElement('source');
-        const videoTrack = document.createElement('track');
-        videoTrack.setAttribute('kind','subtitles');
-        videoTrack.setAttribute('src','toto.fr.vtt');
-        videoTrack.setAttribute('srclang','fr');
-        videoTrack.setAttribute('label','French');
-        mediaVideo.classList.add('imgVideoCard')
-        mediaVideo.setAttribute('controls','');
-        mediaVideo.setAttribute('alt','Lilac breasted roller,closeup view')
-        mediaVideo.setAttribute('data-id',id);
-        mediaVideo.setAttribute('src',mediaVideoUrl);
+    const mediaCard =document.createElement('div');
+    mediaCard.addEventListener('click',openVideoModal);
+    mediaCard.classList.add('videocard')
+    const mediaVideo = document.createElement('video');
+    const videoSource = document.createElement('source');
+    const videoTrack = document.createElement('track');
+    videoTrack.setAttribute('kind','subtitles');
+    videoTrack.setAttribute('src','toto.fr.vtt');
+    videoTrack.setAttribute('srclang','fr');
+    videoTrack.setAttribute('label','French');
+    mediaVideo.classList.add('imgVideoCard')
+    mediaVideo.setAttribute('controls','');
+    mediaVideo.setAttribute('alt','Lilac breasted roller,closeup view')
+    mediaVideo.setAttribute('data-id',id);
+    mediaVideo.setAttribute('src',mediaVideoUrl);
 
-        const descriptionVideo = document.createElement('div');
-        descriptionVideo.classList.add('description-video');
-        const likeDiv = document.createElement('div');
-        likeDiv.classList.add('likediv')
+    const descriptionVideo = document.createElement('div');
+    descriptionVideo.classList.add('description-video');
+    const likeDiv = document.createElement('div');
+    likeDiv.classList.add('likediv')
 
-        const imgTitle = document.createElement('p');
-        imgTitle.innerHTML = title;
+    const imgTitle = document.createElement('p');
+    imgTitle.innerHTML = title;
 
-        const likeImg = document.createElement('p');
-        likeImg.innerHTML = likes;
-        likeImg.classList.add('likenumbers')
-        likeImg.setAttribute('data-id',id)
-        const likeIcon = document.createElement('i')
-        likeIcon.setAttribute('aria-label','likes')
-        likeIcon.classList.add('fa-solid')
-        likeIcon.classList.add('fa-heart')
-        likeIcon.setAttribute('data-id',id)
-        likeIcon.addEventListener('click',clickIcon)
+    const likeImg = document.createElement('p');
+    likeImg.innerHTML = likes;
+    likeImg.classList.add('likenumbers')
+    likeImg.setAttribute('data-id',id)
+    const likeIcon = document.createElement('i')
+    likeIcon.setAttribute('aria-label','likes')
+    likeIcon.classList.add('fa-solid')
+    likeIcon.classList.add('fa-heart')
+    likeIcon.setAttribute('data-id',id)
+    likeIcon.addEventListener('click',clickIcon)
 
-        mediaVideo.appendChild(videoTrack);
-        mediaVideo.appendChild(videoSource);
-        mediaCard.appendChild(mediaVideo);
-        mediaCard.appendChild(descriptionVideo);
-        descriptionVideo.appendChild(imgTitle);
-        descriptionVideo.appendChild(likeDiv);
-        likeDiv.appendChild(likeImg);
-        likeDiv.appendChild(likeIcon);
-        mediaDiv.appendChild(mediaCard);
+    mediaVideo.appendChild(videoTrack);
+    mediaVideo.appendChild(videoSource);
+    mediaCard.appendChild(mediaVideo);
+    mediaCard.appendChild(descriptionVideo);
+    descriptionVideo.appendChild(imgTitle);
+    descriptionVideo.appendChild(likeDiv);
+    likeDiv.appendChild(likeImg);
+    likeDiv.appendChild(likeIcon);
+    mediaDiv.appendChild(mediaCard);
 
-        return (mediaDiv)  
-    }
+    return (mediaDiv)  
+}
 
 
 // Photographer Factory
@@ -196,7 +196,7 @@ export function photographerFactory(data) {
         img.setAttribute("src", picture);
         img.setAttribute('alt', name);
 
-        const h1 = document.createElement('h1');
+        const h1 = document.querySelector('h1');
         h1.textContent = name;
 
         const localisationDiv = document.querySelector('.localisation');
@@ -204,6 +204,8 @@ export function photographerFactory(data) {
 
         const paragraph = document.querySelector('.paragraph')
         paragraph.innerHTML = tagline;
+
+        
 
         return (article);
     }
@@ -249,7 +251,6 @@ document.addEventListener('keydown',function(e){
     }else if(e.key==='Escape'){
         closeLightbox()
     }else if(e.key==='Enter'){
-        console.log(e);
         if(e.target.nodeName==='IMG'){
             openImgModal(e)
         }else{
@@ -257,10 +258,7 @@ document.addEventListener('keydown',function(e){
         }
     }
 })
-lightboxClose.forEach((close => {
-    close.addEventListener('click',closeLightbox)
-}));
-
+lightboxClose.forEach((close => { close.addEventListener('click',closeLightbox) }));
 iconNext.addEventListener('click',nextImage);
 iconPrev.addEventListener('click',prevImage);
 

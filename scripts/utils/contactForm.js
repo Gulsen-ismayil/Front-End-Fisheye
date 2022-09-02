@@ -12,7 +12,6 @@ const formData = document.querySelectorAll('.formdata');
 
 // event
 document.addEventListener('keydown',function(e){
-    console.log(e);
     if(e.key==='Escape'){
         closeModal()
     }else if(e.key==='Enter'){
@@ -23,9 +22,7 @@ document.addEventListener('keydown',function(e){
     }
 })
 contactButton.addEventListener('click',launchContactModal); 
-closeModalButton.forEach((close=> {
-close.addEventListener('click',closeModal)
-}));
+closeModalButton.forEach((close=> { close.addEventListener('click',closeModal) }));
 sendButton.addEventListener('click',launchSend);
 
 // function modal 
@@ -43,7 +40,6 @@ function closeModal() {
 }
 
 function titleContactezmoi() {
-    
     h1contactezmoi.innerText = `Contactez-moi ${photographer.name}`;
 }
 
@@ -55,16 +51,16 @@ function launchSend(e) {
     e.preventDefault();
     const valide = validate();
     if(valide) {
-        console.log('merci')
+    console.log('merci')
     }else {
-        console.log('nest pas valide')
+    console.log('nest pas valide')
     }
 }
 
 function validate() {
     let isValide = true;
    if(validateName(formulaire.first.value)) {
-    console.log(formulaire.first.value)
+    console.log(formulaire.first.value);
     formData[0].setAttribute('error','false')
    }else {
     formData[0].setAttribute('error','true')
@@ -73,7 +69,7 @@ function validate() {
    }
 
    if(validateName(formulaire.last.value)){
-    console.log(formulaire.last.value)
+    console.log(formulaire.last.value);
     formData[1].setAttribute('error','false')
    }else {
     formData[1].setAttribute('error','true')
@@ -81,7 +77,7 @@ function validate() {
    }
 
    if(validateEmail(formulaire.email.value)){
-    console.log(formulaire.email.value)
+    console.log(formulaire.email.value);
     formData[2].setAttribute('error','false')
    }else {
     formData[2].setAttribute('error','true')
@@ -89,7 +85,7 @@ function validate() {
    }
 
    if(validateMessage(formulaire.message.value)){
-    console.log(formulaire.message.value)
+    console.log(formulaire.message.value);
     formData[3].setAttribute('error','false')
    }else {
     formData[3].setAttribute('error','true')

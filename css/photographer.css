@@ -191,6 +191,7 @@ form input {
     align-items: center;
     padding: 1%;
     font-size: 18px;
+    z-index: 3;
 }
 
 .liketotal {
