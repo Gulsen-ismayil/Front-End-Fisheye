@@ -276,7 +276,6 @@ function openModal(e) {
     lightboxName.innerHTML = medias[index].title;
 }
 
-
 function openImgModal(e) {
     overLay.style.display = 'block';
     lightboxModal.style.display = 'block';
@@ -286,7 +285,6 @@ function openImgModal(e) {
     openModal(e)
 }
 
-
 function openVideoModal(e) {
     overLay.style.display = 'block';
     lightboxModal.style.display = 'block';
@@ -295,8 +293,6 @@ function openVideoModal(e) {
     lightboxModal.setAttribute('aria-hidden','false');
     openModal(e)
 }
-
-
 
 function closeLightbox() {
     lightboxModal.style.display = 'none';

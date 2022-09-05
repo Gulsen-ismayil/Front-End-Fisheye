@@ -18,7 +18,7 @@ async function init() {
     displayData(photographers);
 }
 
-await init();
+await init()
     
 
     
