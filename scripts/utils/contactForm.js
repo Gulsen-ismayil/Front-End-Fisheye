@@ -51,16 +51,15 @@ function launchSend(e) {
     e.preventDefault();
     const valide = validate();
     if(valide) {
-    console.log('merci')
+    e.preventDefault();
     }else {
-    console.log('nest pas valide')
+    e.preventDefault();
     }
 }
 
 function validate() {
     let isValide = true;
    if(validateName(formulaire.first.value)) {
-    console.log(formulaire.first.value);
     formData[0].setAttribute('error','false')
    }else {
     formData[0].setAttribute('error','true')
@@ -69,7 +68,6 @@ function validate() {
    }
 
    if(validateName(formulaire.last.value)){
-    console.log(formulaire.last.value);
     formData[1].setAttribute('error','false')
    }else {
     formData[1].setAttribute('error','true')
@@ -77,7 +75,6 @@ function validate() {
    }
 
    if(validateEmail(formulaire.email.value)){
-    console.log(formulaire.email.value);
     formData[2].setAttribute('error','false')
    }else {
     formData[2].setAttribute('error','true')
@@ -85,7 +82,6 @@ function validate() {
    }
 
    if(validateMessage(formulaire.message.value)){
-    console.log(formulaire.message.value);
     formData[3].setAttribute('error','false')
    }else {
     formData[3].setAttribute('error','true')

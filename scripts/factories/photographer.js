@@ -34,7 +34,7 @@ export function photographerFactory(data) {
         article.appendChild(localisationDiv);
         article.appendChild(para);
         article.appendChild(priceJour);
-        a.appendChild(article);
+        a.appendChild(article);     
 
         return (a);
     }

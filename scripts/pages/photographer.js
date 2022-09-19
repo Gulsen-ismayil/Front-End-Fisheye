@@ -93,7 +93,7 @@ function getMediaCardDOMImage(media, photographer) {
     img.setAttribute('src', mediaPicture);
     img.setAttribute('tabindex', '0');
     img.setAttribute('role', 'link');
-    img.setAttribute('alt', 'Lilac breasted roller,closeup view');
+    img.setAttribute('alt', title);
     img.setAttribute('data-id', id);
     img.addEventListener('click', openImgModal);
     const descriptionImg = document.createElement('div');
@@ -110,6 +110,7 @@ function getMediaCardDOMImage(media, photographer) {
     likeImg.classList.add('likenumbers');
     likeImg.innerHTML = likes;
     const likeIcon = document.createElement('i');
+    likeIcon.setAttribute('tabindex','0');
     likeIcon.setAttribute('aria-label', 'likes');
     likeIcon.classList.add('fa-solid');
     likeIcon.classList.add('fa-heart');
@@ -135,40 +136,35 @@ function getMediaCardDOMVideo(media, photographer) {
 
     const mediaCard = document.createElement('div');
     mediaCard.addEventListener('click', openVideoModal);
-    mediaCard.classList.add('videocard')
+    mediaCard.classList.add('videocard');
     const mediaVideo = document.createElement('video');
     const videoSource = document.createElement('source');
-    const videoTrack = document.createElement('track');
-    videoTrack.setAttribute('kind', 'subtitles');
-    videoTrack.setAttribute('src', 'toto.fr.vtt');
-    videoTrack.setAttribute('srclang', 'fr');
-    videoTrack.setAttribute('label', 'French');
-    mediaVideo.classList.add('imgVideoCard')
-    mediaVideo.setAttribute('controls', '');
-    mediaVideo.setAttribute('alt', 'Lilac breasted roller,closeup view')
+    mediaVideo.classList.add('imgVideoCard');
+    mediaVideo.setAttribute('tabindex', '0');
+    mediaVideo.setAttribute('alt',title);                   
     mediaVideo.setAttribute('data-id', id);
     mediaVideo.setAttribute('src', mediaVideoUrl);
 
     const descriptionVideo = document.createElement('div');
     descriptionVideo.classList.add('description-video');
     const likeDiv = document.createElement('div');
-    likeDiv.classList.add('likediv')
+    likeDiv.classList.add('likediv');
 
     const imgTitle = document.createElement('p');
     imgTitle.innerHTML = title;
 
     const likeImg = document.createElement('p');
     likeImg.innerHTML = likes;
-    likeImg.classList.add('likenumbers')
-    likeImg.setAttribute('data-id', id)
-    const likeIcon = document.createElement('i')
-    likeIcon.setAttribute('aria-label', 'likes')
-    likeIcon.classList.add('fa-solid')
-    likeIcon.classList.add('fa-heart')
-    likeIcon.setAttribute('data-id', id)
-    likeIcon.addEventListener('click', clickIcon)
+    likeImg.classList.add('likenumbers');
+    likeImg.setAttribute('data-id', id);
+    const likeIcon = document.createElement('i');
+    likeIcon.setAttribute('tabindex', '0');
+    likeIcon.setAttribute('aria-label', 'likes');
+    likeIcon.classList.add('fa-solid');
+    likeIcon.classList.add('fa-heart');
+    likeIcon.setAttribute('data-id', id);
+    likeIcon.addEventListener('click', clickIcon);
 
-    mediaVideo.appendChild(videoTrack);
     mediaVideo.appendChild(videoSource);
     mediaCard.appendChild(mediaVideo);
     mediaCard.appendChild(descriptionVideo);
@@ -217,7 +213,7 @@ export function photographerFactory(data) {
 
 
 // lightbox 
-// lightbox  DOM
+
 const overLay = document.querySelector('.overlay');
 export const lightboxModal = document.querySelector('.lightbox-modal');
 const lightboxClose = document.querySelectorAll('.closeligthbox');
@@ -244,6 +240,7 @@ lightboxContent.appendChild(iconNext)
 
 // lightbox EVENT
 document.addEventListener('keydown', function (e) {
+    console.log(e);
     if (e.key === 'ArrowLeft') {
         prevImage()
     } else if (e.key === 'ArrowRight') {
@@ -253,8 +250,12 @@ document.addEventListener('keydown', function (e) {
     } else if (e.key === 'Enter') {
         if (e.target.nodeName === 'IMG') {
             openImgModal(e)
-        } else {
-            openVideoModal(e)
+        } else if(e.target.nodeName === 'VIDEO') {
+            openVideoModal(e) 
+        }else if(e.target.nodeName === 'I') {
+            clickIcon(e)
+        }else {
+            console.log('halo');
         }
     }
 })
@@ -368,7 +369,6 @@ function clickIcon(e) {
         likenumbersDom.innerHTML = number;
 
         sum += 1;
-        console.log(sum);
         totalLikePhotographers.innerHTML = sum;
     }
     clicked = e.target.setAttribute('data-clicked', true)
