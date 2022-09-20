@@ -242,7 +242,7 @@ lightboxContent.appendChild(iconNext)
 document.addEventListener('keydown', function (e) {
     console.log(e);
     if (e.key === 'ArrowLeft') {
-        prevImage()
+        prevImage() 
     } else if (e.key === 'ArrowRight') {
         nextImage()
     } else if (e.key === 'Escape') {
