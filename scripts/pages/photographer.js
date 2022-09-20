@@ -387,27 +387,27 @@ function sumLikes() {
 
 //  trier 
 
-// const sortSelect = document.getElementById('sorting')
+const sortSelect = document.getElementById('sorting')
 populerSorting();
-// sortSelect.addEventListener('change', function (e) {
-//     if (e.target.value === 'popularite') {
-//         populerSorting();
-//     } else if (e.target.value === 'date') {
-//         dateSorting();
-//     } else {
-//         titleSorting();
-//     }
-// });
+sortSelect.addEventListener('change', function (e) {
+    if (e.target.value === 'popularite') {
+        populerSorting();
+    } else if (e.target.value === 'date') {
+        dateSorting();
+    } else {
+        titleSorting();
+    }
+});
 
-// function dateSorting() {
-//     mediaDiv.innerHTML = '';
-//     medias.sort((a, z) => {
-//         return new Date(a.date).valueOf() - new Date(z.date).valueOf()
-//     })
-//     medias.forEach((element) => {
-//         mediaFactory(element, photographer)
-//     })
-// }
+function dateSorting() {
+    mediaDiv.innerHTML = '';
+    medias.sort((a, z) => {
+        return new Date(a.date).valueOf() - new Date(z.date).valueOf()
+    })
+    medias.forEach((element) => {
+        mediaFactory(element, photographer)
+    })
+}
 
 function populerSorting() {
     mediaDiv.innerHTML = '';
@@ -419,13 +419,13 @@ function populerSorting() {
     })
 }
 
-// function titleSorting() {
-//     medias.sort((a, z) => {
-//         return a.title.localeCompare(z.title);
-//     })
-//     mediaDiv.innerHTML = '';
-//     medias.forEach((element) => {
-//         mediaFactory(element, photographer)
-//     })
-// }
+function titleSorting() {
+    medias.sort((a, z) => {
+        return a.title.localeCompare(z.title);
+    })
+    mediaDiv.innerHTML = '';
+    medias.forEach((element) => {
+        mediaFactory(element, photographer)
+    })
+}
 
