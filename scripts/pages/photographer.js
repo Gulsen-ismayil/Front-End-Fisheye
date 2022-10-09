@@ -42,13 +42,13 @@ async function displayData(media, photographers) {
 
     photographer = photographers.find(filterPhotographerById);
     medias = media.filter(filterMediaById);
-
+    
     const photographerBlock = photographerFactory(photographer);
     const userCardDOM = photographerBlock.getUserCardDOM();
     photographHeader.appendChild(userCardDOM);
-
+    
     sumLikes()
-
+    
     const likePrice = document.querySelector('.like-price');
     const pricePhotographer = document.createElement('span');
     pricePhotographer.innerText = photographer.price + '€ / jour';
@@ -80,7 +80,7 @@ function mediaFactory(media, photographer) {
 }
 
 function getMediaCardDOMImage(media, photographer) {
-
+    
     const { title, image, likes, id } = media;
     const mediaPicture = `assets/photographers/${photographer.name}/${image}`;
 
@@ -240,7 +240,6 @@ lightboxContent.appendChild(iconNext)
 
 // lightbox EVENT
 document.addEventListener('keydown', function (e) {
-    console.log(e);
     if (e.key === 'ArrowLeft') {
         prevImage() 
     } else if (e.key === 'ArrowRight') {
@@ -254,8 +253,6 @@ document.addEventListener('keydown', function (e) {
             openVideoModal(e) 
         }else if(e.target.nodeName === 'I') {
             clickIcon(e)
-        }else if(e.target.nodeName === 'SELECT'){
-           console.log('eee');
         }
     }
 })

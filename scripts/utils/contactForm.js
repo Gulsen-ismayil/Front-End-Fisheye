@@ -61,6 +61,7 @@ function validate() {
     let isValide = true;
    if(validateName(formulaire.first.value)) {
     formData[0].setAttribute('error','false')
+    console.log(formulaire.first.value);
    }else {
     formData[0].setAttribute('error','true')
     isValide = false;
@@ -69,6 +70,7 @@ function validate() {
 
    if(validateName(formulaire.last.value)){
     formData[1].setAttribute('error','false')
+    console.log(formulaire.last.value);
    }else {
     formData[1].setAttribute('error','true')
     isValide = false;
@@ -76,6 +78,7 @@ function validate() {
 
    if(validateEmail(formulaire.email.value)){
     formData[2].setAttribute('error','false')
+    console.log(formulaire.email.value);
    }else {
     formData[2].setAttribute('error','true')
     isValide = false;
@@ -83,6 +86,7 @@ function validate() {
 
    if(validateMessage(formulaire.message.value)){
     formData[3].setAttribute('error','false')
+    console.log(formulaire.message.value);
    }else {
     formData[3].setAttribute('error','true')
     isValide = false;
